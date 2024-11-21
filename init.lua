@@ -85,6 +85,14 @@ vim.cmd([[highlight Search guibg=NONE guifg=#FFFF00]])  -- Optional text color
 vim.cmd([[highlight IncSearch guibg=NONE guifg=#FFFF00]])  -- Optional text color
 
 
+vim.cmd([[highlight TelescopeNormal guibg=NONE]])
+vim.cmd([[highlight TelescopeBorder guibg=NONE]])
+vim.cmd([[highlight TelescopePromptNormal guibg=NONE]])
+vim.cmd([[highlight TelescopePromptBorder guibg=NONE]])
+vim.cmd([[highlight TelescopeResultsNormal guibg=NONE]])
+vim.cmd([[highlight TelescopeResultsBorder guibg=NONE]])
+vim.cmd([[highlight TelescopePreviewNormal guibg=NONE]])
+vim.cmd([[highlight TelescopePreviewBorder guibg=NONE]])
 
 -- -- Setup for snacks.nvim dashboardi
 require("snacks").setup({
@@ -105,56 +113,50 @@ require("snacks").setup({
         { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
         { icon = " ", key = "q", desc = "Quit", action = ":qa" },
       },
-      header = [[
-███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
-████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
-██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
-██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
-██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
-╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]], 
+      header = [[        
+  _,-""`""-~`)                                   
+(`~_,=========\                                  
+ |---,___.-.__,\                                 
+ |        o     \ ___  _,,,,_     _.--.          
+  \      `^`    /`_.-"~      `~-;`     \         
+   \_      _  .'                 `,     |        
+     |`-           NEOVIM          \'__/         
+    /                      ,_       \  `'-.      
+   /    .-""~~--.            `"-,   ;_    /      
+  |              \               \  | `""`       
+   \__.--'`"-.   /_               |'             
+  	      `"`  `~~~---..,     |              
+	                     \ _.-'`-.           
+	              \       \          
+	               '.     /          
+	         `"~"`]],
+
     },
+    
     sections = {
       { section = "header" },
-      {
+{
         pane = 2,
         section = "terminal",
-        cmd = "echo Chigga's Personal Hell",
-        height = 5,
-        padding = 1,
-      },
-      { section = "keys", gap = 1, padding = 1 },
-      { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-      { 
-        pane = 2,
-        icon = "🧌 ",  -- You can use any icon you prefer
-        title = "Shitty ASCII Art of the Year: Beaver",
-        section = "terminal",
-        cmd = [[ echo                   !    :!                                                     !     !                                                     !    .!                                                ____!    .!                                               .' .  ).   ,'                                             .' c   '7 ) (                                          _.-"       !.'   '.                                       .'           "8E   :!                                       !          _}""    :!                                      !  Allan  (   !     !]],
-        padding = 1,
-        --indent = 2,
-      },
-      {
-        pane = 2,
-        icon = " ",
-        title = "Git Status",
-        section = "terminal",
-        enabled = vim.fn.isdirectory(".git") == 1,
-        cmd = "git status --short --branch --renames || true", -- Suppress git command errors
-        height = 5,
-        padding = 1,
-        ttl = 5 * 60,
-        indent = 3,
-        on_exit = function(_, code)
-          if code ~= 0 then
-            -- Suppress errors or log them at a debug level
-            return --
-          end
-        end,
-      },
+        cmd = "echo Lasciate ogne speranza, voi ch'intrate",
+        height = 2,
+        padding = 17,
+      },    
+      { section = "keys", gap = 1, padding = 1, autohide = true },
+      { pane = 2, icon = " ", title = "Chigga's Recent Files", section = "recent_files", limit = 10, indent = 2, padding = 2, height = 10, },  
       { section = "startup" },
     },
   },
 })
+
+
+vim.cmd([[highlight SnacksConfig guibg=NONE]])        -- Transparent background for the config popup
+vim.cmd([[highlight SnacksRecentFiles guibg=NONE]])   -- Transparent background for recent files popup
+vim.cmd([[highlight SnacksFindFile guibg=NONE]])      -- Transparent background for Find File popup
+vim.cmd([[highlight SnacksTerminalPopup guibg=NONE]]) -- Transparent background for terminal popup in dashboard
+vim.cmd([[highlight SnacksPopup guibg=NONE]])
+
+
 
 
 -- Setup nvim-cmp with LuaSnip for snippets
@@ -288,16 +290,16 @@ vim.cmd([[
 -- The setup config table shows all available config options with their default values:
 require("presence").setup({
     -- General options
-    auto_update         = true,                       -- Update activity based on autocmd events (if false, map or manually execute :lua package.loaded.presence:update())
+    auto_update         = true,                       -- Update activity based on autocmd events (if `false`, map or manually execute `:lua package.loaded.presence:update()`)
     neovim_image_text   = "too much fucking work for this shit", -- Text displayed when hovered over the Neovim image
     main_image          = "neovim",                   -- Main image display (either "neovim" or "file")
    -- client_id           = "793271441293967371",       -- Use your own Discord application client id (not recommended)
     log_level           = nil,                        -- Log messages at or above this level (one of the following: "debug", "info", "warn", "error")
-    debounce_timeout    = 10,                         -- Number of seconds to debounce events (or calls to :lua package.loaded.presence:update(<filename>, true))
+    debounce_timeout    = 10,                         -- Number of seconds to debounce events (or calls to `:lua package.loaded.presence:update(<filename>, true)`)
     enable_line_number  = false,                      -- Displays the current line number instead of the current project
     blacklist           = {},                         -- A list of strings or Lua patterns that disable Rich Presence if the current file name, path, or workspace matches
-    buttons             = true,                       -- Configure Rich Presence button(s), either a boolean to enable/disable, a static table ({{ label = "<label>", url = "<url>" }, ...}, or a function(buffer: string, repo_url: string|nil): table)
-    file_assets         = {},                         -- Custom file asset definitions keyed by file names and extensions (see default config at lua/presence/file_assets.lua for reference)
+    buttons             = true,                       -- Configure Rich Presence button(s), either a boolean to enable/disable, a static table (`{{ label = "<label>", url = "<url>" }, ...}`, or a function(buffer: string, repo_url: string|nil): table)
+    file_assets         = {},                         -- Custom file asset definitions keyed by file names and extensions (see default config at `lua/presence/file_assets.lua` for reference)
     show_time           = true,                       -- Show the timer
 
     -- Rich Presence text options
@@ -307,7 +309,7 @@ require("presence").setup({
     plugin_manager_text = "Managing plugins",         -- Format string rendered when managing plugins (either string or function(plugin_manager_name: string): string)
     reading_text        = "Reading %s",               -- Format string rendered when a read-only or unmodifiable file is loaded in the buffer (either string or function(filename: string): string)
     workspace_text      = "Working on %s",            -- Format string rendered when in a git repository (either string or function(project_name: string|nil, filename: string): string)
-    line_number_text    = "Line %s out of %s",        -- Format string rendered when enable_line_number is set to true (either string or function(line_number: number, line_count: number): string)
+    line_number_text    = "Line %s out of %s",        -- Format string rendered when `enable_line_number` is set to true (either string or function(line_number: number, line_count: number): string)
 })
 
 
@@ -317,5 +319,23 @@ vim.keymap.set("n", "<leader>y", '"+y')      -- Yank to system clipboard
 
 -- Map the spacebar to save the file
 vim.api.nvim_set_keymap('n', '<Space>', ':w<CR>', { noremap = true, silent = true })
--- Map Alt+Space to compile LaTeX using vimtex
-vim.api.nvim_set_keymap('n', '<A-Space>', ':VimtexCompile<CR>', { noremap = true, silent = true })
+
+vim.g.mapleader = ","
+-- Compile LaTeX file
+vim.api.nvim_set_keymap('n', '<leader>ll', ':VimtexCompile<CR>', { noremap = true, silent = true })
+
+-- Refresh LaTeX document
+vim.api.nvim_set_keymap('n', '<leader>lv', ':VimtexView<CR>', { noremap = true, silent = true })
+
+
+
+require('telescope').setup {
+  defaults = {
+    layout_config = {
+      preview_width = 0.65,  -- This increases the width of the preview window
+      width = 0.9,          -- Increase the total picker width
+    },
+    -- Set previewer to be larger (optional)
+    previewer = true,
+  }
+}
