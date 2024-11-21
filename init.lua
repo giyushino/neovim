@@ -9,13 +9,24 @@ require("lazy").setup({
   { 'hrsh7th/cmp-buffer' },               -- Buffer source for nvim-cmp
   { 'hrsh7th/cmp-path' },                 -- Path source for nvim-cmp
   { 'saadparwaiz1/cmp_luasnip' },         -- Snippets completion
-  { 'L3MON4D3/LuaSnip' },                 -- Snippet engine
+  { 'L3MON4D3/LuaSnip' },                 -- Snippet engine 
   { "morhetz/gruvbox" },                  -- Gruvbox colorscheme
   { "nvim-treesitter/nvim-treesitter" },  -- Treesitter for syntax highlighting
-  { "folke/snacks.nvim" },                -- Snacks dashboard plugin
+  { "folke/snacks.nvim"},                -- Snacks dashboard plugin
+  {"shaunsingh/nord.nvim"}, 
   { 'folke/tokyonight.nvim' },            -- Tokyo Night colorscheme
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },  -- Telescope for fuzzy finding
   { 'folke/neodev.nvim', config = function() require('neodev').setup() end },  -- Neodev for Lua LSP
+  {
+  "olimorris/onedarkpro.nvim",
+  --priority = 1000, -- Ensure it loads first
+}, 
+  { "gbprod/yanky.nvim",
+  opts = {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }},
   {
     'andweeb/presence.nvim',
     config = function()
@@ -41,10 +52,41 @@ require("lazy").setup({
 })
 vim.opt.number = true
 -- Set colorscheme after plugins are installed
-vim.cmd('colorscheme gruvbox')
+--vim.cmd('colorscheme gruvbox')
 --vim.cmd('colorscheme tokyonight')
+--vim.cmd[[colorscheme nord]]
+vim.cmd("colorscheme onedark_vivid")
+vim.notify = function() end
+-- Make the vertical split line transparent
+vim.cmd([[highlight Normal guibg=NONE]])
+vim.cmd([[highlight NormalNC guibg=NONE]])
+vim.cmd([[highlight Pmenu guibg=NONE]])
+vim.cmd([[highlight PmenuSel guibg=NONE]])
+vim.cmd([[highlight VertSplit guibg=NONE]])
+vim.cmd([[highlight StatusLine guibg=NONE]])
+vim.cmd([[highlight StatusLineNC guibg=NONE]])
+vim.cmd([[highlight TabLine guibg=NONE]])
+vim.cmd([[highlight TabLineFill guibg=NONE]])
+vim.cmd([[highlight TabLineSel guibg=NONE]])
+-- Make all line number related highlight groups transparent
+vim.cmd([[highlight LineNr guibg=NONE]])
+vim.cmd([[highlight CursorLineNr guibg=NONE]])
+vim.cmd([[highlight SignColumn guibg=NONE]])
+vim.cmd([[highlight FoldColumn guibg=NONE]])
+vim.cmd([[highlight DiffAdd guibg=NONE]])
+vim.cmd([[highlight DiffChange guibg=NONE]])
+vim.cmd([[highlight DiffDelete guibg=NONE]])
+vim.cmd([[highlight DiffText guibg=NONE]])
+vim.cmd([[highlight LineNr guibg=NONE]])
+vim.cmd([[highlight CursorLineNr guibg=NONE]])
+vim.cmd([[highlight ColorColumn guibg=NONE]])
+-- Make search results transparent
+vim.cmd([[highlight Search guibg=NONE guifg=#FFFF00]])  -- Optional text color
+vim.cmd([[highlight IncSearch guibg=NONE guifg=#FFFF00]])  -- Optional text color
 
--- Setup for snacks.nvim dashboard
+
+
+-- -- Setup for snacks.nvim dashboardi
 require("snacks").setup({
   dashboard = {
     width = 60,
@@ -54,14 +96,14 @@ require("snacks").setup({
     autokeys = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
     preset = {
       keys = {
-        { icon = "🧌 ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-        { icon = "🧌 ", key = "n", desc = "New File", action = ":ene | startinsert" },
-        { icon = "🧌 ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-        { icon = "🧌 ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-        { icon = "🧌 ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-        { icon = "🧌 ", key = "s", desc = "Restore Session", section = "session" },
-        { icon = "🧌 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
-        { icon = "🧌 ", key = "q", desc = "Quit", action = ":qa" },
+        { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+        { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+        { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+        { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+        { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+        { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+        { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
+        { icon = " ", key = "q", desc = "Quit", action = ":qa" },
       },
       header = [[
 ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
@@ -69,14 +111,14 @@ require("snacks").setup({
 ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
 ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
 ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
-╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]],
+╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]], 
     },
     sections = {
       { section = "header" },
       {
         pane = 2,
         section = "terminal",
-        cmd = "echo 'Welcome to Hell!'",
+        cmd = "echo Chigga's Personal Hell",
         height = 5,
         padding = 1,
       },
@@ -84,12 +126,12 @@ require("snacks").setup({
       { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
       { 
         pane = 2,
-        icon = " ",  -- You can use any icon you prefer
-        title = "Welcome to Neovim",
+        icon = "🧌 ",  -- You can use any icon you prefer
+        title = "Shitty ASCII Art of the Year: Beaver",
         section = "terminal",
-        cmd = [[ echo                   !    :!                                                     !     !                                                     !    .!                                                ____!    .!                                               .' .  ).   ,'                                             .' c   '7 ) (                                          _.-"       !.'   .                                       .'           "8E   :!                                       !          _}""    :!                                      !         (   !     ! ]], 
+        cmd = [[ echo                   !    :!                                                     !     !                                                     !    .!                                                ____!    .!                                               .' .  ).   ,'                                             .' c   '7 ) (                                          _.-"       !.'   '.                                       .'           "8E   :!                                       !          _}""    :!                                      !  Allan  (   !     !]],
         padding = 1,
-        indent = 3,
+        --indent = 2,
       },
       {
         pane = 2,
@@ -97,11 +139,17 @@ require("snacks").setup({
         title = "Git Status",
         section = "terminal",
         enabled = vim.fn.isdirectory(".git") == 1,
-        cmd = "git status --short --branch --renames",
+        cmd = "git status --short --branch --renames || true", -- Suppress git command errors
         height = 5,
         padding = 1,
         ttl = 5 * 60,
         indent = 3,
+        on_exit = function(_, code)
+          if code ~= 0 then
+            -- Suppress errors or log them at a debug level
+            return --
+          end
+        end,
       },
       { section = "startup" },
     },
@@ -236,6 +284,7 @@ vim.cmd([[
   highlight CmpItemKindVariable guifg=#F92672 gui=bold
 ]])
 
+
 -- The setup config table shows all available config options with their default values:
 require("presence").setup({
     -- General options
@@ -259,4 +308,14 @@ require("presence").setup({
     reading_text        = "Reading %s",               -- Format string rendered when a read-only or unmodifiable file is loaded in the buffer (either string or function(filename: string): string)
     workspace_text      = "Working on %s",            -- Format string rendered when in a git repository (either string or function(project_name: string|nil, filename: string): string)
     line_number_text    = "Line %s out of %s",        -- Format string rendered when enable_line_number is set to true (either string or function(line_number: number, line_count: number): string)
-}) 
+})
+
+
+vim.keymap.set("n", "y", "<Plug>(YankyYank)") -- Enhance yank
+vim.keymap.set("n", "<leader>p", '"+p')      -- Paste from system clipboard
+vim.keymap.set("n", "<leader>y", '"+y')      -- Yank to system clipboard
+
+-- Map the spacebar to save the file
+vim.api.nvim_set_keymap('n', '<Space>', ':w<CR>', { noremap = true, silent = true })
+-- Map Alt+Space to compile LaTeX using vimtex
+vim.api.nvim_set_keymap('n', '<A-Space>', ':VimtexCompile<CR>', { noremap = true, silent = true })
