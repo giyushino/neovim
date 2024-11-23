@@ -13,14 +13,14 @@ require("lazy").setup({
   { "morhetz/gruvbox" },                  -- Gruvbox colorscheme
   { "nvim-treesitter/nvim-treesitter" },  -- Treesitter for syntax highlighting
   { "folke/snacks.nvim"},                -- Snacks dashboard plugin
-  {"shaunsingh/nord.nvim"}, 
   { 'folke/tokyonight.nvim' },            -- Tokyo Night colorscheme
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },  -- Telescope for fuzzy finding
   { 'folke/neodev.nvim', config = function() require('neodev').setup() end },  -- Neodev for Lua LSP
   {
   "olimorris/onedarkpro.nvim",
   --priority = 1000, -- Ensure it loads first
-}, 
+},
+  { "andweeb/presence.nvim" }, 
   { "gbprod/yanky.nvim",
   opts = {
     -- your configuration comes here
@@ -54,9 +54,8 @@ vim.opt.number = true
 -- Set colorscheme after plugins are installed
 --vim.cmd('colorscheme gruvbox')
 --vim.cmd('colorscheme tokyonight')
---vim.cmd[[colorscheme nord]]
 vim.cmd("colorscheme onedark_vivid")
-vim.notify = function() end
+
 -- Make the vertical split line transparent
 vim.cmd([[highlight Normal guibg=NONE]])
 vim.cmd([[highlight NormalNC guibg=NONE]])
@@ -291,9 +290,9 @@ vim.cmd([[
 require("presence").setup({
     -- General options
     auto_update         = true,                       -- Update activity based on autocmd events (if `false`, map or manually execute `:lua package.loaded.presence:update()`)
-    neovim_image_text   = "too much fucking work for this shit", -- Text displayed when hovered over the Neovim image
+    neovim_image_text   = "i spent way too much fucking time configuring this shit", -- Text displayed when hovered over the Neovim image
     main_image          = "neovim",                   -- Main image display (either "neovim" or "file")
-   -- client_id           = "793271441293967371",       -- Use your own Discord application client id (not recommended)
+    client_id           = "793271441293967371",       -- Use your own Discord application client id (not recommended)
     log_level           = nil,                        -- Log messages at or above this level (one of the following: "debug", "info", "warn", "error")
     debounce_timeout    = 10,                         -- Number of seconds to debounce events (or calls to `:lua package.loaded.presence:update(<filename>, true)`)
     enable_line_number  = false,                      -- Displays the current line number instead of the current project
@@ -303,7 +302,7 @@ require("presence").setup({
     show_time           = true,                       -- Show the timer
 
     -- Rich Presence text options
-    editing_text        = "I FUCKING HATE EDITING %s",               -- Format string rendered when an editable file is loaded in the buffer (either string or function(filename: string): string)
+    editing_text        = "probably fixing %s",               -- Format string rendered when an editable file is loaded in the buffer (either string or function(filename: string): string)
     file_explorer_text  = "Browsing %s",              -- Format string rendered when browsing a file explorer (either string or function(file_explorer_name: string): string)
     git_commit_text     = "Committing changes",       -- Format string rendered when committing changes in git (either string or function(filename: string): string)
     plugin_manager_text = "Managing plugins",         -- Format string rendered when managing plugins (either string or function(plugin_manager_name: string): string)
@@ -313,6 +312,7 @@ require("presence").setup({
 })
 
 
+
 vim.keymap.set("n", "y", "<Plug>(YankyYank)") -- Enhance yank
 vim.keymap.set("n", "<leader>p", '"+p')      -- Paste from system clipboard
 vim.keymap.set("n", "<leader>y", '"+y')      -- Yank to system clipboard
@@ -320,13 +320,19 @@ vim.keymap.set("n", "<leader>y", '"+y')      -- Yank to system clipboard
 -- Map the spacebar to save the file
 vim.api.nvim_set_keymap('n', '<Space>', ':w<CR>', { noremap = true, silent = true })
 
+vim.api.nvim_set_keymap('n', ',n', ':q<CR>', { noremap = true, silent = true })
+
 vim.g.mapleader = ","
 -- Compile LaTeX file
-vim.api.nvim_set_keymap('n', '<leader>ll', ':VimtexCompile<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>l', ':VimtexCompile<CR>', { noremap = true, silent = true })
 
 -- Refresh LaTeX document
-vim.api.nvim_set_keymap('n', '<leader>lv', ':VimtexView<CR>', { noremap = true, silent = true })
-
+vim.api.nvim_set_keymap('n', '<leader>.', ':VimtexView<CR>', { noremap = true, silent = true })
+-- Remap `,tree` to `NvimTreeToggle`
+vim.api.nvim_set_keymap('n', '<leader>m', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+-- Map <leader>r to run the current Python file
+vim.api.nvim_set_keymap('n', '<leader>r', ':w<CR>:!python3 %<CR>', { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('n', '<leader>r', ':w<CR>:!C:\\Users\\allan\\anaconda3\\envs\\itwillwork\\python.exe %<CR>', { noremap = true, silent = true })
 
 
 require('telescope').setup {
@@ -339,3 +345,5 @@ require('telescope').setup {
     previewer = true,
   }
 }
+
+vim.g.nvim_tree_width = 50
