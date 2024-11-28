@@ -92,8 +92,15 @@ vim.cmd([[highlight TelescopeResultsNormal guibg=NONE]])
 vim.cmd([[highlight TelescopeResultsBorder guibg=NONE]])
 vim.cmd([[highlight TelescopePreviewNormal guibg=NONE]])
 vim.cmd([[highlight TelescopePreviewBorder guibg=NONE]])
+vim.cmd [[
+  highlight Normal guibg=NONE ctermbg=NONE
+  highlight NormalNC guibg=NONE ctermbg=NONE
+  highlight NvimTreeNormal guibg=NONE ctermbg=NONE
+  highlight NvimTreeNormalNC guibg=NONE ctermbg=NONE
+]]
 
--- -- Setup for snacks.nvim dashboardi
+
+-- -- Setup for snacks.nvim dashboard
 require("snacks").setup({
   dashboard = {
     width = 60,
@@ -339,7 +346,7 @@ require('telescope').setup {
   defaults = {
     layout_config = {
       preview_width = 0.65,  -- This increases the width of the preview window
-      width = 0.9,          -- Increase the total picker width
+      width = 1,          -- Increase the total picker width
     },
     -- Set previewer to be larger (optional)
     previewer = true,
@@ -347,3 +354,7 @@ require('telescope').setup {
 }
 
 vim.g.nvim_tree_width = 50
+
+vim.keymap.set("n", "<leader>d", function()
+  require("snacks").dashboard.open()
+end, { desc = "Open Snacks Dashboard" })
