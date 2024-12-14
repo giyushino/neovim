@@ -12,14 +12,20 @@ require("lazy").setup({
   { 'L3MON4D3/LuaSnip' },                 -- Snippet engine 
   { "morhetz/gruvbox" },                  -- Gruvbox colorscheme
   { "nvim-treesitter/nvim-treesitter" },  -- Treesitter for syntax highlighting
-  { "folke/snacks.nvim"},                -- Snacks dashboard plugin
   { 'folke/tokyonight.nvim' },            -- Tokyo Night colorscheme
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },  -- Telescope for fuzzy finding
   { 'folke/neodev.nvim', config = function() require('neodev').setup() end },  -- Neodev for Lua LSP
+  {'github/copilot.vim',},
+  {'nordtheme/vim'},
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  {"junegunn/seoul256.vim"},
   {
   "olimorris/onedarkpro.nvim",
   --priority = 1000, -- Ensure it loads first
 },
+  {
+  "folke/snacks.nvim",
+  priority = 1000,},  
   { "andweeb/presence.nvim" }, 
   { "gbprod/yanky.nvim",
   opts = {
@@ -54,7 +60,13 @@ vim.opt.number = true
 -- Set colorscheme after plugins are installed
 --vim.cmd('colorscheme gruvbox')
 --vim.cmd('colorscheme tokyonight')
-vim.cmd("colorscheme onedark_vivid")
+--vim.cmd("colorscheme onedark_vivid")
+--vim.cmd("colorscheme onedark_dark")
+--vim.cmd("colorscheme catppuccin")
+--vim.cmd("colorscheme nord")
+vim.cmd("colorscheme seoul256")
+
+
 
 -- Make the vertical split line transparent
 vim.cmd([[highlight Normal guibg=NONE]])
@@ -144,7 +156,7 @@ require("snacks").setup({
 {
         pane = 2,
         section = "terminal",
-        cmd = "echo Lasciate ogne speranza, voi ch'intrate",
+        cmd = "echo No one is your enemy. You have no enemies at all",
         height = 2,
         padding = 17,
       },    
@@ -172,11 +184,11 @@ cmp.setup({
     autocomplete = { cmp.TriggerEvent.TextChanged, cmp.TriggerEvent.InsertLeave },
   },
   mapping = {
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-    ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-  },
+    ['<C-Space>'] = cmp.mapping.complete(),  -- Trigger completion manually
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),  -- Confirm selected completion
+    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),  -- Move to next completion item (using Ctrl+n)
+    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),  -- Move to previous completion item (using Ctrl+p)
+},
   sources = {
     { name = 'nvim_lsp' },
     { name = 'buffer' },
@@ -309,12 +321,12 @@ require("presence").setup({
     show_time           = true,                       -- Show the timer
 
     -- Rich Presence text options
-    editing_text        = "probably fixing %s",               -- Format string rendered when an editable file is loaded in the buffer (either string or function(filename: string): string)
-    file_explorer_text  = "Browsing %s",              -- Format string rendered when browsing a file explorer (either string or function(file_explorer_name: string): string)
-    git_commit_text     = "Committing changes",       -- Format string rendered when committing changes in git (either string or function(filename: string): string)
-    plugin_manager_text = "Managing plugins",         -- Format string rendered when managing plugins (either string or function(plugin_manager_name: string): string)
-    reading_text        = "Reading %s",               -- Format string rendered when a read-only or unmodifiable file is loaded in the buffer (either string or function(filename: string): string)
-    workspace_text      = "Working on %s",            -- Format string rendered when in a git repository (either string or function(project_name: string|nil, filename: string): string)
+    editing_text        = "probably fucking up %s",               -- Format string rendered when an editable file is loaded in the buffer (either string or function(filename: string): string)
+    file_explorer_text  = "browsing %s",              -- Format string rendered when browsing a file explorer (either string or function(file_explorer_name: string): string)
+    git_commit_text     = "committing changes",       -- Format string rendered when committing changes in git (either string or function(filename: string): string)
+    plugin_manager_text = "managing plugins",         -- Format string rendered when managing plugins (either string or function(plugin_manager_name: string): string)
+    reading_text        = "reading %s",               -- Format string rendered when a read-only or unmodifiable file is loaded in the buffer (either string or function(filename: string): string)
+    workspace_text      = "working on %s",            -- Working on %s Format string rendered when in a git repository (either string or function(project_name: string|nil, filename: string): string)
     line_number_text    = "Line %s out of %s",        -- Format string rendered when `enable_line_number` is set to true (either string or function(line_number: number, line_count: number): string)
 })
 
@@ -334,24 +346,42 @@ vim.g.mapleader = ","
 vim.api.nvim_set_keymap('n', '<leader>l', ':VimtexCompile<CR>', { noremap = true, silent = true })
 
 -- Refresh LaTeX document
-vim.api.nvim_set_keymap('n', '<leader>.', ':VimtexView<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>r', ':VimtexView<CR>', { noremap = true, silent = true })
 -- Remap `,tree` to `NvimTreeToggle`
 vim.api.nvim_set_keymap('n', '<leader>m', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 -- Map <leader>r to run the current Python file
-vim.api.nvim_set_keymap('n', '<leader>r', ':w<CR>:!python3 %<CR>', { noremap = true, silent = true })
---vim.api.nvim_set_keymap('n', '<leader>r', ':w<CR>:!C:\\Users\\allan\\anaconda3\\envs\\itwillwork\\python.exe %<CR>', { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('n', '<leader>r', ':w<CR>:!python3 %<CR>', { noremap = true, silent = true })
 
+vim.api.nvim_set_keymap('n', '<leader>.', ':w<CR>:!C:/Users/allan/anaconda3/python.exe %<CR>', { noremap = true, silent = true })
 
 require('telescope').setup {
   defaults = {
     layout_config = {
-      preview_width = 0.65,  -- This increases the width of the preview window
-      width = 1,          -- Increase the total picker width
+      preview_width = 0.65,  -- The width of the preview window (for horizontal and flex layouts)
+      width = 0.8,           -- The width of the picker (adjust as necessary)
+      height = 0.8,          -- The height of the picker (adjust as necessary)
     },
-    -- Set previewer to be larger (optional)
-    previewer = true,
-  }
+    sorting_strategy = "ascending",  -- Sorting strategy
+    layout_strategy = "center",       -- Flex layout (automatic adjustment)
+  },
+  pickers = {
+    find_files = {
+      theme = "ivy",  -- Apply 'ivy' theme to find_files picker
+    },
+    oldfiles = {
+      theme = "ivy",  -- Apply 'ivy' theme to oldfiles picker
+    },
+  },
 }
+
+-- Disable default Tab mapping for Copilot
+vim.g.copilot_no_tab_map = true
+
+-- Map <Tab> to accept Copilot suggestion
+vim.api.nvim_set_keymap('i', '<Tab>', 'copilot#Accept()', { expr = true, silent = true })
+
+
+
 
 vim.g.nvim_tree_width = 50
 
