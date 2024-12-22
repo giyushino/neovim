@@ -1,6 +1,13 @@
 require("lazy").setup({
   -- Plugin list goes here
-  { 'williamboman/mason.nvim', config = function() require('mason').setup() end },
+  { 
+    'williamboman/mason.nvim', 
+    config = function() 
+      require('mason').setup({
+        ensure_installed = {"pyright", "clangd", "tinymist", "ts_ls"},  -- Ensures tinymist is installed
+      })
+    end 
+  },
   { 'williamboman/mason-lspconfig.nvim', config = function() require('mason-lspconfig').setup() end },
   { 'neovim/nvim-lspconfig' },            -- LSP support
   { 'hrsh7th/nvim-cmp' },                 -- Autocompletion plugin
@@ -14,18 +21,18 @@ require("lazy").setup({
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },  -- Telescope for fuzzy finding
   { 'folke/neodev.nvim', config = function() require('neodev').setup() end },  -- Neodev for Lua LSP
   {'github/copilot.vim',},
-  --{'nordtheme/vim'},
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   --{"junegunn/seoul256.vim"},
   --{
   --"olimorris/onedarkpro.nvim",
   --priority = 1000, -- Ensure it loads first
---},
-  {
+  --},
+    {
   "folke/snacks.nvim",
   priority = 1000,},
   { "andweeb/presence.nvim",},
   { "gbprod/yanky.nvim",},
+  
   {
     "nvim-tree/nvim-tree.lua",
     config = function()
@@ -51,53 +58,21 @@ vim.opt.number = true
 --vim.cmd("colorscheme onedark_vivid")
 --vim.cmd("colorscheme onedark_dark")
 vim.cmd("colorscheme catppuccin")
---vim.cmd("colorscheme nord")
 --vim.cmd("colorscheme seoul256")
 
 
+vim.cmd([[
+  highlight StatusLine guibg=NONE guifg=#ffffff
+  highlight StatusLineNC guibg=NONE guifg=#777777
+]])
 
--- Make the vertical split line transparent
-vim.cmd([[highlight Normal guibg=NONE]])
-vim.cmd([[highlight NormalNC guibg=NONE]])
-vim.cmd([[highlight Pmenu guibg=NONE]])
-vim.cmd([[highlight PmenuSel guibg=NONE]])
-vim.cmd([[highlight VertSplit guibg=NONE]])
-vim.cmd([[highlight StatusLine guibg=NONE]])
-vim.cmd([[highlight StatusLineNC guibg=NONE]])
-vim.cmd([[highlight TabLine guibg=NONE]])
-vim.cmd([[highlight TabLineFill guibg=NONE]])
-vim.cmd([[highlight TabLineSel guibg=NONE]])
--- Make all line number related highlight groups transparent
-vim.cmd([[highlight LineNr guibg=NONE]])
-vim.cmd([[highlight CursorLineNr guibg=NONE]])
-vim.cmd([[highlight SignColumn guibg=NONE]])
-vim.cmd([[highlight FoldColumn guibg=NONE]])
-vim.cmd([[highlight DiffAdd guibg=NONE]])
-vim.cmd([[highlight DiffChange guibg=NONE]])
-vim.cmd([[highlight DiffDelete guibg=NONE]])
-vim.cmd([[highlight DiffText guibg=NONE]])
-vim.cmd([[highlight LineNr guibg=NONE]])
-vim.cmd([[highlight CursorLineNr guibg=NONE]])
-vim.cmd([[highlight ColorColumn guibg=NONE]])
--- Make search results transparent
-vim.cmd([[highlight Search guibg=NONE guifg=#FFFF00]])  -- Optional text color
-vim.cmd([[highlight IncSearch guibg=NONE guifg=#FFFF00]])  -- Optional text color
-
-
-vim.cmd([[highlight TelescopeNormal guibg=NONE]])
-vim.cmd([[highlight TelescopeBorder guibg=NONE]])
-vim.cmd([[highlight TelescopePromptNormal guibg=NONE]])
-vim.cmd([[highlight TelescopePromptBorder guibg=NONE]])
-vim.cmd([[highlight TelescopeResultsNormal guibg=NONE]])
-vim.cmd([[highlight TelescopeResultsBorder guibg=NONE]])
-vim.cmd([[highlight TelescopePreviewNormal guibg=NONE]])
-vim.cmd([[highlight TelescopePreviewBorder guibg=NONE]])
 vim.cmd [[
   highlight Normal guibg=NONE ctermbg=NONE
   highlight NormalNC guibg=NONE ctermbg=NONE
   highlight NvimTreeNormal guibg=NONE ctermbg=NONE
   highlight NvimTreeNormalNC guibg=NONE ctermbg=NONE
 ]]
+
 
 
 -- -- Setup for snacks.nvim dashboard
@@ -112,8 +87,8 @@ require("snacks").setup({
       keys = {
         { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
         { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-        { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-        { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+        --{ icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+	{ icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
         { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
         { icon = " ", key = "s", desc = "Restore Session", section = "session" },
         { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
@@ -155,15 +130,26 @@ require("snacks").setup({
   },
 })
 
+require('lspconfig').pyright.setup({
+  on_attach = function(client, bufnr)
+    -- This is where you can set custom LSP mappings or configuration
+  end
+})
 
-vim.cmd([[highlight SnacksConfig guibg=NONE]])        -- Transparent background for the config popup
-vim.cmd([[highlight SnacksRecentFiles guibg=NONE]])   -- Transparent background for recent files popup
-vim.cmd([[highlight SnacksFindFile guibg=NONE]])      -- Transparent background for Find File popup
-vim.cmd([[highlight SnacksTerminalPopup guibg=NONE]]) -- Transparent background for terminal popup in dashboard
-vim.cmd([[highlight SnacksPopup guibg=NONE]])
+require('lspconfig').clangd.setup({
+  on_attach = function(client, bufnr)
+    -- This is where you can set custom LSP mappings or configuration
+  end
+})
 
-
-
+require('lspconfig').ts_ls.setup{
+  on_attach = function(client, bufnr)
+    -- Additional configuration, if needed
+  end,
+  flags = {
+    debounce_text_changes = 150,
+  },
+}
 
 -- Setup nvim-cmp with LuaSnip for snippets
 local cmp = require('cmp')
@@ -175,7 +161,7 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping.complete(),  -- Trigger completion manually
     ['<CR>'] = cmp.mapping.confirm({ select = true }),  -- Confirm selected completion
     ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),  -- Move to next completion item (using Ctrl+n)
-    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),  -- Move to previous completion item (using Ctrl+p)
+    ['<C-m>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),  -- Move to previous completion item (using Ctrl+p)
 },
   sources = {
     { name = 'nvim_lsp' },
@@ -190,30 +176,6 @@ cmp.setup({
   },
 })
 
--- Set up LSP for Lua (LuaLS)
-local lspconfig = require('lspconfig')
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-lspconfig.lua_ls.setup({
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT',
-        path = vim.split(package.path, ';'),
-      },
-      diagnostics = {
-        globals = { 'vim' },
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-})
 
 
 vim.cmd([[
@@ -283,13 +245,33 @@ vim.g.mapleader = ","
 vim.api.nvim_set_keymap('n', '<leader>l', ':VimtexCompile<CR>', { noremap = true, silent = true })
 
 -- Refresh LaTeX document
-vim.api.nvim_set_keymap('n', '<leader>r', ':VimtexView<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>t', ':VimtexView<CR>', { noremap = true, silent = true })
 -- Remap `,tree` to `NvimTreeToggle`
 vim.api.nvim_set_keymap('n', '<leader>m', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 -- Map <leader>r to run the current Python file
 --vim.api.nvim_set_keymap('n', '<leader>r', ':w<CR>:!python3 %<CR>', { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('n', '<leader>.', ':w<CR>:!C:/Users/allan/anaconda3/python.exe %<CR>', { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('n', '<leader>.', ':w<CR>:!C:/Users/allan/anaconda3/python.exe %<CR>', { noremap = true, silent = true })
+
+-- Define a mapping for running Python or JavaScript
+vim.api.nvim_set_keymap('n', '<leader>.', ':lua RunScript()<CR>', { noremap = true, silent = true })
+
+-- Function to run the script based on filetype
+function RunScript()
+  local filetype = vim.bo.filetype
+  if filetype == 'python' then
+    -- Run Python script using Anaconda's Python interpreter
+    vim.cmd('!C:/Users/allan/anaconda3/python.exe %')
+  elseif filetype == 'javascript' then
+    -- Run JavaScript with Node.js
+    vim.cmd('!node %')
+  else
+    print("Unsupported file type")
+  end
+end
+
+
+
 
 require('telescope').setup {
   defaults = {
@@ -325,3 +307,4 @@ vim.g.nvim_tree_width = 50
 vim.keymap.set("n", "<leader>d", function()
   require("snacks").dashboard.open()
 end, { desc = "Open Snacks Dashboard" })
+
