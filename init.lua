@@ -19,7 +19,8 @@ vim.api.nvim_set_keymap('i', '$', '$$<Left>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '.', '<Nop>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>n', ':setlocal spell spelllang=en_us<CR>', { noremap = true, silent = true })
 
-
+vim.api.nvim_set_keymap('n', '<leader>m', ':lua Snacks.picker.explorer()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>;', ':lua Snacks.terminal()<CR>', { noremap = true, silent = true })
 
 function RunScript()
   local filetype = vim.bo.filetype

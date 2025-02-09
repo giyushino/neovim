@@ -1,6 +1,6 @@
 return {
   {
-    'rebelot/cord.nvim',  -- Specify the plugin here
+    'vyfor/cord.nvim',  -- Specify the plugin here
     config = function()
       -- Customize the cord.nvim plugin setup
       require('cord').setup({
@@ -36,7 +36,7 @@ return {
         text = {
           workspace = function(opts) return 'in ' .. opts.workspace end,
           viewing = function(opts) return 'viewing ' .. opts.filename end,
-          editing = function(opts) return 'fucking up on ' .. opts.filename end,  -- Custom text for editing
+          editing = function(opts) return 'fucking up ' .. opts.filename end,  -- Custom text for editing
           file_browser = function(opts) return 'browsing files in ' .. opts.name end,
           plugin_manager = function(opts) return 'managing plugins in ' .. opts.name end,
           lsp = function(opts) return 'configuring LSP in ' .. opts.name end,
