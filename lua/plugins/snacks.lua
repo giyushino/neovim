@@ -5,13 +5,6 @@ return {
   config = function()
     -- Correctly call Snacks.nvim's setup with the configuration
     require('snacks').setup({
-      terminal = {
-        -- Terminal specific settings for Snacks.nvim
-        cmd = "echo 'Welcome to Snacks Terminal!'",  -- Command to run in terminal
-        height = 10,  -- Height of the terminal pane
-        width = 80,   -- Width of the terminal pane
-        split = "horizontal", -- Split orientation ('horizontal' or 'vertical')
-      },
     dashboard = {
     width = 60,
     row = nil,
@@ -51,7 +44,6 @@ return {
       { pane = 2, icon = " ", title = "Allan's Recent Files", section = "recent_files", limit = 10, indent = 2, padding = 2, height = 10, }, 	  {section = "startup"},
     },
   },
-    })
+  })
   end,
 }
-
