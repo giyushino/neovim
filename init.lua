@@ -22,28 +22,39 @@ vim.api.nvim_set_keymap('n', '<leader>n', ':setlocal spell spelllang=en_us<CR>',
 vim.api.nvim_set_keymap('n', 'f', ':lua Snacks.dashboard.pick()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>m', ':lua Snacks.picker.explorer()<CR>', { noremap = true, silent = true })
 
-vim.keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<Leader>bp", "<Cmd>BufferLinePick<CR>", { noremap = true, silent = true })
-
-
-vim.opt.termguicolors = true
 
 function RunScript()
   local filetype = vim.bo.filetype
   if filetype == 'python' then
-    -- Run Python script using Anaconda's Python interpreter
-    vim.cmd('!C:/Users/allan/anaconda3/python.exe %')
+    -- Read the first few lines to find the Conda env comment
+    local lines = vim.fn.getline(1, 5)
+    local env_name
+
+    for _, line in ipairs(lines) do
+      env_name = line:match("#%s*conda_env:%s*(%S+)")
+      if env_name then break end
+    end
+
+    -- Set the appropriate Python executable
+    local python_cmd
+    if env_name then
+      python_cmd = "C:/Users/allan/anaconda3/envs/" .. env_name .. "/python.exe"
+    else
+      python_cmd = "C:/Users/allan/anaconda3/python.exe"  -- Default to base Python
+    end
+
+    -- Run the script with the detected interpreter
+    vim.cmd('! ' .. python_cmd .. ' %')
+
   elseif filetype == 'javascript' then
-    -- Run JavaScript with Node.js
     vim.cmd('!node %')
+
   else
     print("Unsupported file type")
   end
 end
 
 vim.api.nvim_set_keymap('n', '<leader>.', ':lua RunScript()<CR>', { noremap = true, silent = true })
-
 
 -- Ensure lazy.nvim is installed and set it up
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
