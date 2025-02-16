@@ -1,40 +1,52 @@
 return {
   {
     'williamboman/mason.nvim',
-    lazy = true,  -- Lazy load mason.nvim
-    event = "BufReadPre",  -- This can trigger the plugin early when files are opened
+    lazy = true,  -- Ensure mason.nvim is loaded immediately
     config = function()
-      -- Setup mason.nvim to ensure specific servers are installed
-      require('mason').setup({
-        ensure_installed = {"pyright", "clangd", "ts_ls", "texlab", "tinymist"},
+      require('mason').setup()  -- Basic setup for mason.nvim
+    end,
+  },
+
+  {
+    'williamboman/mason-lspconfig.nvim',
+    lazy = true,
+    config = function()
+      require('mason-lspconfig').setup({
+        ensure_installed = { "pyright", "clangd", "texlab", "tinymist" },
       })
     end,
   },
-  
-  -- Your existing LSP plugin configurations
+
   {
     'neovim/nvim-lspconfig',
     lazy = true,  -- Lazy load LSP servers
-    ft = { 'python', 'cpp', 'javascript', 'tex' },  -- Trigger when opening specific file types
+    ft = { 'python', 'cpp', 'javascript', 'tex' },  -- Load for these filetypes
     config = function()
-      -- LSP Configuration goes here
-      require('lspconfig').pyright.setup{
-        on_attach = function(client, bufnr)
-          -- Custom actions when Pyright attaches
-        end
-      }
-      require('lspconfig').clangd.setup{
-        on_attach = function(client, bufnr)
-          -- Custom actions when Clangd attaches
-        end
-      }
-     require('lspconfig').texlab.setup{
-        on_attach = function(client, bufnr)
-          -- Custom actions when TexLab attaches
+      local lspconfig = require('lspconfig')
+
+      -- BasedPyright setup with reduced error reporting
+      lspconfig.pyright.setup{
+        on_attach = function(client, bufnr) 
+          require "lsp_signature".on_attach(signature_setup, bufnr)
         end,
-      -- Include any other LSP server setups you have
-  }  
-  end,
+      }
+
+      -- Clangd setup
+      lspconfig.clangd.setup{
+        on_attach = function(client, bufnr)
+          -- Custom actions for Clangd
+        end,
+      }
+
+      -- TexLab setup
+      lspconfig.texlab.setup{
+        on_attach = function(client, bufnr)
+          -- Custom actions for TexLab
+        end,
+      }
+
+      -- Add any other LSP setups here...
+    end,
   },
 }
 
