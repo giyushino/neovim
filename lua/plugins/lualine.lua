@@ -8,7 +8,7 @@ return {
             require('lualine').setup {
                 options = {
                     icons_enabled = true,
-                    theme = 'fluoromachine',  -- Use the fluoromachine theme
+                    theme = 'auto',  -- Use the fluoromachine theme
                     component_separators = { left = '', right = ''},
                     section_separators = { left = '', right = ''},
                     disabled_filetypes = {
@@ -26,18 +26,38 @@ return {
                     }
                 },
                 sections = {
-                    lualine_a = {'mode'},
-                    lualine_b = {'branch', 'diff', 'diagnostics'},
-                    lualine_c = {'filename'},
-                    lualine_x = {'encoding', 'fileformat', 'filetype'},
-                    lualine_y = {'progress'},
-                    lualine_z = {'location'}
+                    lualine_a = {
+                        { 'mode', color = { fg = '#FF6666' } }  -- Light red color for mode section
+                    },
+                    lualine_b = {
+                        { 'branch', color = { fg = '#FF6666' } },
+                        { 'diff', color = { fg = '#FF6666' } },
+                        { 'diagnostics', color = { fg = '#FF6666' } }
+                    },
+                    lualine_c = {
+                        { 'filename', color = { fg = '#FF6666' } }
+                    },
+                    lualine_x = {
+                        { 'encoding', color = { fg = '#FF6666' } },
+                        { 'fileformat', color = { fg = '#FF6666' } },
+                        { 'filetype', color = { fg = '#FF6666' } }
+                    },
+                    lualine_y = {
+                        { 'progress', color = { fg = '#FF6666' } }  -- Light red for progress
+                    },
+                    lualine_z = {
+                        { 'location', color = { fg = '#FF6666' } }
+                    }
                 },
                 inactive_sections = {
                     lualine_a = {},
                     lualine_b = {},
-                    lualine_c = {'filename'},
-                    lualine_x = {'location'},
+                    lualine_c = {
+                        { 'filename', color = { fg = '#FF6666' } }
+                    },
+                    lualine_x = {
+                        { 'location', color = { fg = '#FF6666' } }
+                    },
                     lualine_y = {},
                     lualine_z = {}
                 },

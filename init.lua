@@ -10,6 +10,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = 'no'
 
+
 vim.api.nvim_set_keymap('i', '(', '()<Left>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '[', '[]<Left>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '{', '{}<Left>', { noremap = true, silent = true })
@@ -77,3 +78,5 @@ require("lazy").setup({
   },
 })
  
+
+vim.api.nvim_set_hl(0, "Comment", { fg = "#FF8886", italic = false }) -- Orange Comments 🍊🔥

@@ -10,9 +10,11 @@ return {
         floating_window = true, 
         floating_window_off_x = 20, 
         floating_window_off_y = 0,
+        --[[
         hint_scheme = "String",
-        hint_inline = function() return true end,
+        hint_inline = function() return 'eol' end,
         hint_enable = true,
+        --]]
         zindex = 50,
         transparency = 100, 
       },
