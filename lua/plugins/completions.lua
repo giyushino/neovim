@@ -28,18 +28,6 @@ return {
               require('luasnip').lsp_expand(args.body)
             end,
           },
-          enabled = function()
-            -- Use Treesitter to check if the cursor is inside a function argument list
-            local node = ts_utils.get_node_at_cursor()
-            while node do
-              -- Check if the node type is a function argument list
-              if node:type() == 'argument_list' then
-                return false -- Disable completion inside function arguments
-              end
-              node = node:parent() -- Move up the syntax tree
-            end
-            return true -- Enable completion otherwise
-          end,
         })
       end,
     }, 

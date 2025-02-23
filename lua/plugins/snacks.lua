@@ -5,6 +5,9 @@ return {
   config = function()
     -- Correctly call Snacks.nvim's setup with the configuration
     require('snacks').setup({
+    explorer = {
+        hide_dotfiles = false,
+    }, 
     dashboard = {
     width = 60,
     row = nil,

@@ -22,9 +22,8 @@
   -- Other plugins...
 }
 --]]
-
-
---[[return {
+--[[
+return {
   {
     "scottmckendry/cyberdream.nvim",
     lazy = false,  -- Load immediately
@@ -146,11 +145,7 @@
     end
   }
 }
-
 --]]
-
-
-
 
 return {
   {
@@ -170,8 +165,13 @@ return {
           -- Strings
           SnacksDashboardHeader = { fg = "#FF6A6A", bg = "NONE" },  -- Malenia red for the header
           String = { fg = "#FF6A6A", bg = "NONE" },  -- Malenia-inspired red
+          Special = { fg = "#FF6A6A", bg = "NONE" },       -- Gold for special characters
+          SpecialChar = { fg = "#FF6A6A", bg = "NONE" },
           Statement = { fg = "#FF6A6A", bg = "NONE" },
-
+          SnacksStartupTime = { fg = "#FF6A6A", bg = "NONE" }, -- Gold for startup time
+          SnacksStartupStats = { fg = "#FF6A6A", bg = "NONE" }, -- Gold for startup stats
+          ["@spell"] = { fg = "#FF6A6A", bg = "NONE" },
+         
           -- Text
           Normal = { fg = "#F0C3A2", bg = "NONE" },  -- Light tan for normal text
           Keywords = { fg = "#E6B800", bg = "NONE" },  -- Richer golden yellow
@@ -260,4 +260,3 @@ return {
     end
   }
 }
-

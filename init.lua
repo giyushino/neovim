@@ -20,8 +20,10 @@ vim.api.nvim_set_keymap('i', '$', '$$<Left>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '.', '<Nop>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>n', ':setlocal spell spelllang=en_us<CR>', { noremap = true, silent = true })
 
+
+
 vim.api.nvim_set_keymap('n', 'f', ':lua Snacks.dashboard.pick()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>m', ':lua Snacks.picker.explorer()<CR>', { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('n', '<leader>m', ':lua Snacks.picker.explorer({ show_hidden = true })<CR>', { noremap = true, silent = true })
 
 
 function RunScript()
