@@ -12,7 +12,8 @@ return {
           icon = nil,
         },
         display = {
-          theme = 'pastel',
+          theme = 'default',
+          flavor = 'dark', 
           swap_fields = false,
           swap_icons = true,
         },

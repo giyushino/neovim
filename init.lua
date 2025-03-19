@@ -11,6 +11,8 @@ vim.opt.relativenumber = true
 vim.opt.signcolumn = 'no'
 
 
+vim.api.nvim_set_keymap("v", "<leader>r", ":s///g<Left><Left><Left>", { noremap = true })
+
 vim.api.nvim_set_keymap('i', '(', '()<Left>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '[', '[]<Left>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '{', '{}<Left>', { noremap = true, silent = true })
@@ -20,19 +22,23 @@ vim.api.nvim_set_keymap('i', '$', '$$<Left>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '.', '<Nop>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>n', ':setlocal spell spelllang=en_us<CR>', { noremap = true, silent = true })
 
-
+vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 
 vim.api.nvim_set_keymap('n', 'f', ':lua Snacks.dashboard.pick()<CR>', { noremap = true, silent = true })
 --vim.api.nvim_set_keymap('n', '<leader>m', ':lua Snacks.picker.explorer({ show_hidden = true })<CR>', { noremap = true, silent = true })
 
 
+
 function RunScript()
   local filetype = vim.bo.filetype
+  local current_dir = vim.fn.expand('%:p:h')  -- Get the directory of the current file
+  
   if filetype == 'python' then
     -- Read the first few lines to find the Conda env comment
     local lines = vim.fn.getline(1, 5)
     local env_name
 
+    -- Look for the Conda environment specified in the comment
     for _, line in ipairs(lines) do
       env_name = line:match("#%s*conda_env:%s*(%S+)")
       if env_name then break end
@@ -41,15 +47,40 @@ function RunScript()
     -- Set the appropriate Python executable
     local python_cmd
     if env_name then
-      python_cmd = "C:/Users/allan/anaconda3/envs/" .. env_name .. "/python.exe"
+      python_cmd = "/home/allan/miniconda3/envs/" .. env_name .. "/bin/python"
     else
-      python_cmd = "C:/Users/allan/anaconda3/python.exe"  -- Default to base Python
+      python_cmd = "/home/allan/miniconda3/bin/python"  -- Default to base Python
     end
 
     -- Run the script with the detected interpreter
-    vim.cmd('! ' .. python_cmd .. ' %')
+    vim.cmd('!' .. python_cmd .. ' %')
 
   elseif filetype == 'javascript' then
+    vim.cmd('!cd ' .. current_dir .. ' && node %')
+
+  elseif filetype == 'cpp' then
+    -- Compile and run C++ file
+    local filename = vim.fn.expand('%:t')  -- Get the filename (e.g., main.cpp)
+    local output_name = filename:match("(.+)%..+$")  -- Get the file name without extension (e.g., main)
+    vim.cmd('!cd ' .. current_dir .. ' && g++ ' .. filename .. ' -o ' .. output_name)
+    vim.cmd('!cd ' .. current_dir .. ' && ./' .. output_name)  -- Run the compiled binary
+
+  else
+    print("Unsupported file type")
+  end
+end
+
+
+
+function RunScript2()
+  local filetype = vim.bo.filetype
+
+  if filetype == 'python' then
+    -- Run Python script with the default Python interpreter
+    vim.cmd('!python3 %')
+
+  elseif filetype == 'javascript' then
+    -- Run JavaScript script with Node.js
     vim.cmd('!node %')
 
   else

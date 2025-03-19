@@ -15,17 +15,13 @@ return {
         },
       }
 
-      local function get_conda_env()
-        local first_line = vim.fn.getline(1)
-        local env = first_line:match("#conda_env:%s*(%S+)")
-        return env
-      end
-
       -- Open terminal in the current file's directory dynamically
       vim.keymap.set("n", "<leader>;", function()
         local file_dir = vim.fn.expand("%:p:h") -- Get current file's directory
-        local conda_env = get_conda_env()
-        local cmd = conda_env and ("conda activate " .. conda_env .. " && cmd.exe") or "cmd.exe"
+
+        -- Use the existing terminal environment without specifying a new shell
+        -- This will open the terminal in the same state as the current shell (with Conda if activated)
+        local cmd = "fish"  -- This assumes you are using fish shell; adjust if needed
 
         require("toggleterm.terminal").Terminal
           :new({ dir = file_dir, direction = "float", cmd = cmd })
@@ -34,3 +30,4 @@ return {
     end,
   },
 }
+

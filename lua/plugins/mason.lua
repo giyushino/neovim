@@ -1,7 +1,7 @@
 return {
   {
     'williamboman/mason.nvim',
-    lazy = true,  -- Ensure mason.nvim is loaded immediately
+    lazy = false,  -- Ensure mason.nvim is loaded immediately
     config = function()
       require('mason').setup()  -- Basic setup for mason.nvim
     end,
