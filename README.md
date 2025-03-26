@@ -1,17 +1,17 @@
 # neovim
 my neovim config using lazy as my package manager
 
-## Snacks dashboard
-![faster](https://github.com/user-attachments/assets/e4f5dfd0-c8ff-43d6-93c5-94cf90813351)
+# Snacks dashboard
+#![homepage](https://github.com/user-attachments/assets/05e80ba5-2718-40d7-ae8c-b1e1e0cca2fb)
 
 ## Nvim Tree
-![files](https://github.com/user-attachments/assets/0174c41d-2862-462f-b532-c18c77ce6f53)
+![tree](https://github.com/user-attachments/assets/06b0a0d5-5352-4123-a1ff-36d27f49324f)
 
 ## Latex
-![latex](https://github.com/user-attachments/assets/096a8f73-c2bd-43de-9e68-2fe0b74dd7e8)
+![latex](https://github.com/user-attachments/assets/d5072a76-656b-42fd-9fe1-fed5a1728c7e)
 
 ## Toggle term
-![toggleterm](https://github.com/user-attachments/assets/b19042cf-2f39-4152-ac58-1419725c34b4)
+![image](https://github.com/user-attachments/assets/6edeed8b-cb5f-451a-85b9-f8d83236a6bf)
 
 
 
