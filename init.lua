@@ -1,17 +1,42 @@
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 vim.api.nvim_set_keymap('n', '<Space>', ':w<CR>', { noremap = true, silent = true })
-
 vim.opt.tabstop = 4       -- Set the number of spaces a tab character occupies
 vim.opt.shiftwidth = 4    -- Set the number of spaces for indentation
 vim.opt.expandtab = true
+vim.opt.showmode = false
 
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = 'no'
 
+vim.g.neovide_opacity = 0.3
+vim.g.transparency = 0
+vim.g.neovide_background_color = "C3B1E1" 
 
+vim.api.nvim_set_hl(0, "NvimTreeFolderName", { fg = "#FF69B4", bg = "NONE" }) -- Pink folder names
 vim.api.nvim_set_keymap("v", "<leader>r", ":s///g<Left><Left><Left>", { noremap = true })
+
+if vim.g.neovide == true then
+  vim.api.nvim_set_keymap("n", "<C-+>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>", { silent = true })
+  vim.api.nvim_set_keymap("n", "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>", { silent = true })
+  vim.api.nvim_set_keymap("n", "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>", { silent = true })
+  vim.g.terminal_color_0 = "#45475a"
+  vim.g.terminal_color_1 = "#f38ba8"
+  vim.g.terminal_color_2 = "#a6e3a1"
+  vim.g.terminal_color_3 = "#f9e2af"
+  vim.g.terminal_color_4 = "#89b4fa"
+  vim.g.terminal_color_5 = "#f5c2e7"
+  vim.g.terminal_color_6 = "#94e2d5"
+  vim.g.terminal_color_7 = "#bac2de"
+  vim.g.terminal_color_8 = "#585b70"
+  vim.g.terminal_color_9 = "#f38ba8"
+  vim.g.terminal_color_10 = "#a6e3a1"
+  vim.g.terminal_color_11 = "#f9e2af"
+  vim.g.terminal_color_12 = "#89b4fa"
+  vim.g.terminal_color_13 = "#f5c2e7"
+  vim.g.terminal_color_14 = "#94e2d5"
+  vim.g.terminal_color_15 = "#a6adc8" end
 
 vim.api.nvim_set_keymap('i', '(', '()<Left>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '[', '[]<Left>', { noremap = true, silent = true })
@@ -20,73 +45,94 @@ vim.api.nvim_set_keymap('i', '"', '""<Left>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '$', '$$<Left>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '.', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>n', ':setlocal spell spelllang=en_us<CR>', { noremap = true, silent = true })
 
 vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 
 vim.api.nvim_set_keymap('n', 'f', ':lua Snacks.dashboard.pick()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'g', ":lua Snacks.dashboard.pick('live_grep')<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<leader>;', ':ToggleTerm<CR>', { noremap = true, silent = true })
+
+vim.keymap.set('n', '<leader>l', ':lua Snacks.dashboard()<CR>', { noremap = true, silent = true, desc = "Open Snacks dashboard" })
+vim.keymap.set('n', '<leader>c', ':Copilot enable<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>x', ':Copilot disable<CR>', { noremap = true, silent = true })
+
+
+vim.keymap.set('i', '<C-F>', 'copilot#Accept("\\<CR>")', {
+  expr = true,
+  replace_keycodes = false
+})
+vim.g.copilot_no_tab_map = true
 --vim.api.nvim_set_keymap('n', '<leader>m', ':lua Snacks.picker.explorer({ show_hidden = true })<CR>', { noremap = true, silent = true })
+--vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#fab387" }) -- or any hex color you like
 
 
 
 function RunScript()
   local filetype = vim.bo.filetype
-  local current_dir = vim.fn.expand('%:p:h')  -- Get the directory of the current file
-  
+  local current_file = vim.fn.expand('%:p')  
+  local current_dir = vim.fn.expand('%:p:h')   
+
   if filetype == 'python' then
-    -- Read the first few lines to find the Conda env comment
     local lines = vim.fn.getline(1, 5)
     local env_name
+    local use_uv = false
+    local shebang
 
-    -- Look for the Conda environment specified in the comment
     for _, line in ipairs(lines) do
-      env_name = line:match("#%s*conda_env:%s*(%S+)")
-      if env_name then break end
+      if line:match("^#!") then
+        shebang = line:match("^#!%s*(.+)")
+        break 
+      elseif line:match("#%s*uv") then
+        use_uv = true
+      elseif not env_name then
+        env_name = line:match("#%s*conda_env:%s*(%S+)")
+      end
     end
 
-    -- Set the appropriate Python executable
+    -- Determine the Python executable
     local python_cmd
-    if env_name then
+    if shebang then
+      python_cmd = shebang
+    elseif use_uv then
+      -- Use the .venv Python path when # uv is detected
+      python_cmd = GetVenvPythonPath()
+      if not python_cmd then
+        print("Could not find .venv Python path")
+        return
+      end
+    elseif env_name then
       python_cmd = "/home/allan/miniconda3/envs/" .. env_name .. "/bin/python"
     else
-      python_cmd = "/home/allan/miniconda3/bin/python"  -- Default to base Python
+      python_cmd = "/home/allan/miniconda3/bin/python"  
     end
 
-    -- Run the script with the detected interpreter
-    vim.cmd('!' .. python_cmd .. ' %')
-
+    vim.cmd('!' .. python_cmd .. ' ' .. vim.fn.shellescape(current_file))
+  
   elseif filetype == 'javascript' then
-    vim.cmd('!cd ' .. current_dir .. ' && node %')
+    vim.cmd('!cd ' .. current_dir .. ' && node ' .. vim.fn.shellescape(current_file))
+  
+  elseif filetype == "tex" then
+    vim.cmd('VimtexCompile')
 
   elseif filetype == 'cpp' then
     -- Compile and run C++ file
-    local filename = vim.fn.expand('%:t')  -- Get the filename (e.g., main.cpp)
-    local output_name = filename:match("(.+)%..+$")  -- Get the file name without extension (e.g., main)
+    local filename = vim.fn.expand('%:t')  
+    local output_name = filename:match("(.+)%..+$")  
     vim.cmd('!cd ' .. current_dir .. ' && g++ ' .. filename .. ' -o ' .. output_name)
-    vim.cmd('!cd ' .. current_dir .. ' && ./' .. output_name)  -- Run the compiled binary
+    vim.cmd('!cd ' .. current_dir .. ' && ./' .. output_name) 
+    
+  elseif filetype == "cuda" then 
+    local filename = vim.fn.expand('%:t')
+    local output_name = filename:match("(.+)%..+$")
+    vim.cmd('!cd ' .. current_dir .. ' && nvcc ' .. filename .. ' -o ' .. output_name)
+    vim.cmd('!cd ' .. current_dir .. ' && ./' .. output_name)  
 
   else
     print("Unsupported file type")
   end
 end
 
-
-
-function RunScript2()
-  local filetype = vim.bo.filetype
-
-  if filetype == 'python' then
-    -- Run Python script with the default Python interpreter
-    vim.cmd('!python3 %')
-
-  elseif filetype == 'javascript' then
-    -- Run JavaScript script with Node.js
-    vim.cmd('!node %')
-
-  else
-    print("Unsupported file type")
-  end
-end
 
 vim.api.nvim_set_keymap('n', '<leader>.', ':lua RunScript()<CR>', { noremap = true, silent = true })
 
@@ -112,4 +158,7 @@ require("lazy").setup({
 })
  
 
-vim.api.nvim_set_hl(0, "Comment", { fg = "#FF8886", italic = false }) -- Orange Comments 🍊🔥
+--vim.api.nvim_set_hl(0, "Comment", { fg = "#FF8886", italic = false }) -- Orange Comments 🍊🔥
+vim.api.nvim_set_hl(0, "Comment", { fg = "#dfc5fe", italic = false }) 
+vim.api.nvim_set_hl(0, 'LineNr', { fg = "#c0afe2" })
+vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = "#ffcc00", bold = true })
