@@ -8,9 +8,17 @@ return {
       vim.g.moonflyTransparent = true
       vim.cmd.colorscheme("moonfly")
       vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = "#6dd5a2", bg = "NONE" })
-      vim.api.nvim_set_hl(0, "Function", { fg = "#6dd5a2", bold = true })
-      vim.api.nvim_set_hl(0, "Keyword", { fg = "#7cd68d", bold = true })
-      --vim.api.nvim_set_hl(0, "Conditional", { fg = "#66a266", italic = true })
+      --vim.api.nvim_set_hl(0, "Function", { fg = "#72ffb5", bold = true })
+      vim.api.nvim_set_hl(0, "Function", { fg = "#7cd68d", bold = true})
+      vim.api.nvim_set_hl(0, "Keyword", { fg = "#72ffb5", bold = true })
+      vim.api.nvim_set_hl(0, "Conditional", { fg = "#72ffb5", italic = true })
+      --vim.api.nvim_set_hl(0, "Statement", { fg = "#1dbc60", italic = true })
+      vim.api.nvim_set_hl(0, "Statement", { fg = "#72ffb5", italic = true })
+      vim.api.nvim_set_hl(0, "Repeat", { fg = "#77dd77", italic = true })
+      vim.api.nvim_set_hl(0, "@keyword.exception.python", { fg = "#b59dfa", bold = true })
+      vim.api.nvim_set_hl(0, "@keyword.operator.python", { fg = "#99cced", bold = true })
+      vim.api.nvim_set_hl(0, "@keyword.import.python", { fg = "#9C89ff", bold = true })
+      vim.api.nvim_set_hl(0, "string", { fg = "#ADD8E6" })
     end,
   },
 }
