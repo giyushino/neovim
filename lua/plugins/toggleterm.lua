@@ -13,7 +13,7 @@ return {
             return vim.o.columns * 0.4
           end
         end,
-        open_mapping = [[<leader>;]], -- optional: a default terminal toggle
+        open_mapping = [[<leader>l]], -- optional: a default terminal toggle
         direction = "float",          -- fallback default
         shade_terminals = false,
         start_in_insert = true,
@@ -37,7 +37,7 @@ return {
         float_term:toggle()
       end, { desc = "Toggle Float Terminal" })
 
-      vim.keymap.set("n", "<leader>l", function()
+      vim.keymap.set("n", "<leader>;", function()
         vert_term:toggle()
       end, { desc = "Toggle Vertical Terminal" })
 

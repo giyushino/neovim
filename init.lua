@@ -5,10 +5,17 @@ vim.opt.tabstop = 4       -- Set the number of spaces a tab character occupies
 vim.opt.shiftwidth = 4    -- Set the number of spaces for indentation
 vim.opt.expandtab = true
 vim.opt.showmode = false
-
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = 'no'
+vim.opt.swapfile = false
+--vim.opt.concealcursor = "n"
+--vim.opt["guicursor"] = "" 
+
+vim.opt.hlsearch = false
+vim.opt.incsearch = true 
+vim.opt.smartcase = true
+vim.opt.ignorecase = true
 
 --vim.g.neovide_opacity = 0.3
 --vim.g.transparency = 0
@@ -166,9 +173,15 @@ require("lazy").setup({
 })
  
 
---vim.api.nvim_set_hl(0, "Comment", { fg = "#FF8886", italic = false }) -- Orange Comments 🍊🔥
-vim.api.nvim_set_hl(0, "Comment", { fg = "#dfc5fe", italic = false }) 
-vim.api.nvim_set_hl(0, 'LineNr', { fg = "#64e3a1" })
-vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = "#2eb774", bold = true })
-vim.api.nvim_set_keymap('n', '<C-[>', ':lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
+--vim.api.nvim_set_hl(0, "Comment", { fg = "#dfc5fe", italic = false }) 
+--vim.api.nvim_set_hl(0, 'LineNr', { fg = "#64e3a1" })
+--vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = "#2eb774", bold = true })
+--vim.api.nvim_set_keymap('n', '<C-[>', ':lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
+
+
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
+
 
