@@ -2,16 +2,19 @@
 my neovim config using lazy as my package manager
 
 ## Snacks dashboard
-![homepage](https://github.com/user-attachments/assets/05e80ba5-2718-40d7-ae8c-b1e1e0cca2fb)
+![homepage](<img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/95c6476a-a4bb-43eb-a681-d45f98ab2f45" />)
 
 ## Nvim Tree
-![tree](https://github.com/user-attachments/assets/06b0a0d5-5352-4123-a1ff-36d27f49324f)
+![tree](<img width="2560" height="1597" alt="image" src="https://github.com/user-attachments/assets/6a0dd950-2fc3-4ba7-8dcf-b04806811523" />)
 
 ## Latex
-![latex](https://github.com/user-attachments/assets/d5072a76-656b-42fd-9fe1-fed5a1728c7e)
+![latex](<img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/b872bb78-6e72-4bd1-8799-d5c16d23ddad" />)
+
+## File Finder 
+![file finder](<img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/1ee6b463-7be8-486e-9420-2192210a1286" />)
 
 ## Toggle term
-![image](https://github.com/user-attachments/assets/6edeed8b-cb5f-451a-85b9-f8d83236a6bf)
+![image](<img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/fd1364ee-c5a8-411a-b0be-f6d11a519081" />)
 
 
 
