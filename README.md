@@ -2,19 +2,19 @@
 my neovim config using lazy as my package manager
 
 ## Snacks dashboard
-<img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/95c6476a-a4bb-43eb-a681-d45f98ab2f45" />
+<img width="2560" height="1599" alt="image" src="https://github.com/user-attachments/assets/2d708f8f-ce59-4749-b3a6-7611a82d85bf" />
 
 ## Nvim Tree
-<img width="2560" height="1597" alt="image" src="https://github.com/user-attachments/assets/6a0dd950-2fc3-4ba7-8dcf-b04806811523" />
+<img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/d6051c49-36dc-4835-9ba4-d1a0bee6b378" />
 
 ## Latex
-<img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/b872bb78-6e72-4bd1-8799-d5c16d23ddad" />
+<img width="2560" height="1595" alt="image" src="https://github.com/user-attachments/assets/1218018a-3872-4b00-8cdb-ef8431c26d09" />
 
 ## File Finder 
-<img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/1ee6b463-7be8-486e-9420-2192210a1286" />
+<img width="2560" height="1595" alt="image" src="https://github.com/user-attachments/assets/08d40408-c789-414c-a55a-b29dbd5ced06" />
 
 ## Toggle term
-<img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/fd1364ee-c5a8-411a-b0be-f6d11a519081" />
+<img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/74fe743e-c78d-4240-a926-ebb5e9269b07" />
 
 
 
