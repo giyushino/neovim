@@ -9,7 +9,8 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = 'no'
 vim.opt.swapfile = false
---vim.opt.concealcursor = "n"
+vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result (centered)" })
+vim.opt.concealcursor = "n"
 --vim.opt["guicursor"] = "" 
 
 vim.opt.hlsearch = false
@@ -77,7 +78,7 @@ vim.keymap.set('i', '<C-F>', 'copilot#Accept("\\<CR>")', {
   replace_keycodes = false
 })
 vim.g.copilot_no_tab_map = true
---vim.api.nvim_set_keymap('n', '<leader>m', ':lua Snacks.picker.explorer({ show_hidden = true })<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>m', ':lua Snacks.picker.explorer({ show_hidden = true })<CR>', { noremap = true, silent = true })
 --vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#fab387" }) -- or any hex color you like
 
 
@@ -149,7 +150,7 @@ end
 
 
 vim.api.nvim_set_keymap('n', '<leader>.', ':lua RunScript()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('t', '<Esc>', [[<C-\><C-n>]], { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('t', '<Esc>', [[<C-\><C-n>]], { noremap = true, silent = true })
 
 -- Ensure lazy.nvim is installed and set it up
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -176,12 +177,12 @@ require("lazy").setup({
 --vim.api.nvim_set_hl(0, "Comment", { fg = "#dfc5fe", italic = false }) 
 --vim.api.nvim_set_hl(0, 'LineNr', { fg = "#64e3a1" })
 --vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = "#2eb774", bold = true })
---vim.api.nvim_set_keymap('n', '<C-[>', ':lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
+--
+vim.api.nvim_set_keymap('n', '<C-[>', ':lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
 
 
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
-
 
