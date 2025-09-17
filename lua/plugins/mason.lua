@@ -27,7 +27,7 @@ return {
       -- BasedPyright setup with reduced error reporting
       lspconfig.pyright.setup{
         on_attach = function(client, bufnr) 
-          require "lsp_signature".on_attach(signature_setup, bufnr)
+          --require "lsp_signature".on_attach(signature_setup, bufnr)
         end,
       }
 
