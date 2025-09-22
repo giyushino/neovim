@@ -11,6 +11,11 @@ return {
       vim.api.nvim_set_hl(0, "SnacksPickerFile", { fg = "#FFFFFF", bg = "None" })
       vim.api.nvim_set_hl(0, "SnacksBorder", { fg = "#585858", bg = "None" })
       vim.api.nvim_set_hl(0, "Normal", { fg = "#ffffff", bg = "#1c1c1c" })
+      vim.api.nvim_set_hl(0, "Comment", { fg = "#e5dfda", bg = "#1c1c1c" })
+      vim.api.nvim_set_hl(0, "@keyword.return", { fg = "#eae7e6", bold = true })
+      vim.api.nvim_set_hl(0, "@function.builtin", { fg = "#A0A1A0", bold = true })
+      vim.api.nvim_set_hl(0, "@variable.builtin", { fg = "#DEDEDE", bold = true })
+      -- to change the glow, change Operator
     end
   }
 }
