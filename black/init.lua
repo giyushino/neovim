@@ -118,9 +118,9 @@ function RunScript()
         return
       end
     elseif env_name then
-      python_cmd = "/home/allan/miniconda3/envs/" .. env_name .. "/bin/python"
+      python_cmd = "/home/allanz/miniconda3/envs/" .. env_name .. "/bin/python"
     else
-      python_cmd = "/home/allan/miniconda3/bin/python"  
+      python_cmd = "/home/allanz/miniconda3/bin/python"  
     end
 
     vim.cmd('!' .. python_cmd .. ' ' .. vim.fn.shellescape(current_file))
