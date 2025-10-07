@@ -208,6 +208,7 @@ vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
 
+
 -- Ensure OSC 52 is available for system clipboard
 local osc52 = require('vim.ui.clipboard.osc52')
 
@@ -223,4 +224,5 @@ vim.keymap.set('n', '<leader>p', '"+p', { desc = 'Paste from system clipboard (O
 
 -- Ensure default yanks (yy, y) use internal registers, not system clipboard
 vim.opt.clipboard = '' -- Disable unnamedplus to keep yy internal
+
 

@@ -63,6 +63,7 @@ return {
           ["@constant.builtin"] = { fg = "#6276bb" }, 
           PreProc = { fg = "#5a90e8" }, 
           ["@function.builtin"] = { fg = "#5683fb" }, 
+          NvimTreeFolderName= { fg = "#5478f6" }, 
           ["@module"] = { fg = "#91c7e4" }, 
           ["@constructor"] = { fg = "#7784d5" }, 
           ["@variable.builtin"] = { fg = "#78aae7" }, 
