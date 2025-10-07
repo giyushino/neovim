@@ -14,7 +14,7 @@ vim.opt.concealcursor = "n"
 --vim.opt["guicursor"] = "" 
 vim.api.nvim_create_user_command('Q', 'q', {})
 
-vim.opt.hlsearch = false
+--vim.opt.hlsearch = false
 vim.opt.incsearch = true 
 vim.opt.smartcase = true
 vim.opt.ignorecase = true

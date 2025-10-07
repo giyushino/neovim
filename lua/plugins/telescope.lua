@@ -9,8 +9,9 @@ return {
         hidden = true,
         -- Ignore certain patterns
         file_ignore_patterns = {
-          "%.pt$", "%.safetensors$", "%.json$", "%.exe$", "%.o$", "%.obj$", "%.class$", "%.DS_Store$",
-          "%.pyc$", "__pycache__/", "node_modules/", "%.lock$", ".git/", "%.swp$", "%.swo$", "%.bak$", "%.tmp$", "%.log$"
+          "%.pt$", "%.safetensors$", "%.json$", "%.md$", "%.o$", "%.obj$", "%.class$", "%.DS_Store$",
+          "%.pyc$", "__pycache__/", "node_modules/", "%.lock$", ".git/", "%.swp$", "%.swo$", "%.bak$", "%.tmp$", "%.log$",
+          "__init__%.py$"
         },
         -- Optional layout and sorting defaults
         layout_strategy = "flex",
