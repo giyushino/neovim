@@ -5,9 +5,10 @@ return {
     ft = { 'python', 'cpp', },
     dependencies = { 'ray-x/lsp_signature.nvim' },
     config = function()
+        local orig_notify = vim.notify
         vim.notify = function(msg, log_level, _opts)
           if msg:match("lspconfig") then return end  -- ignore lspconfig warnings
-          vim.notify(msg, log_level, _opts)
+          orig_notify(msg, log_level, _opts)
         end
 
       local lspconfig = require('lspconfig')
@@ -17,9 +18,6 @@ return {
         hint_enable = true,
         handler_opts = { border = "rounded" },
       }
-      local on_attach = function(client, bufnr)
-        pcall(require('lsp_signature').on_attach, signature_setup, bufnr)
-      end
 
       -- python
       lspconfig.pyright.setup{ on_attach = on_attach }
