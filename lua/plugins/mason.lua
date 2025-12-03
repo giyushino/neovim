@@ -1,32 +1,74 @@
 return {
   {
+    'williamboman/mason.nvim',
+    lazy = false,
+    config = function()
+      require('mason').setup()
+    end,
+  },
+
+  {
+    'williamboman/mason-lspconfig.nvim',
+    lazy = false,
+    dependencies = { 'williamboman/mason.nvim' },
+    config = function()
+      require('mason-lspconfig').setup({
+        --ensure_installed = { "pyright", "clangd", "texlab", "tinymist", "ocamllsp", "eslint", "vtsls", "html", "lua_ls", "pyrefly" },
+        --automatic_installation = true,
+      })
+    end,
+  },
+
+  {
     'neovim/nvim-lspconfig',
     lazy = false,
-    ft = { 'python', 'cpp', },
-    dependencies = { 'ray-x/lsp_signature.nvim' },
+    ft = { 'python', 'cpp' },
     config = function()
-        local orig_notify = vim.notify
-        vim.notify = function(msg, log_level, _opts)
-          if msg:match("lspconfig") then return end  -- ignore lspconfig warnings
-          orig_notify(msg, log_level, _opts)
-        end
-
       local lspconfig = require('lspconfig')
 
-      local signature_setup = {
-        bind = true,
-        hint_enable = true,
-        handler_opts = { border = "rounded" },
+      ---------------------------------------------------
+      -- Python
+      ---------------------------------------------------
+      --vim.lsp.config['pyright'] = {}
+      vim.lsp.config['pyrefly'] = {}
+
+      ---------------------------------------------------
+      -- C/C++
+      ---------------------------------------------------
+      vim.lsp.config['clangd'] = {
+        cmd = { "clangd", "--header-insertion=iwyu", "--query-driver=/usr/bin/g++" },
+        init_options = { clangdFileStatus = true },
+        settings = {
+          clangd = {
+            arguments = {
+              "-I/opt/libtorch/include",
+              "-I/opt/libtorch/include/torch/csrc/api/include",
+              "-std=c++17",
+              "-D_GLIBCXX_USE_CXX11_ABI=1",
+            },
+          },
+        },
       }
 
-      -- python
-      lspconfig.pyright.setup{ on_attach = on_attach }
-
-      -- c/c++
-      lspconfig.clangd.setup{ on_attach = on_attach }
-
-      -- add more servers here
+    
+      ---------------------------------------------------
+      -- Lua
+      ---------------------------------------------------
+      vim.lsp.config['luals'] = {
+        cmd = { 'lua-language-server' },
+        filetypes = { 'lua' },
+        root_markers = { { '.luarc.json', '.luarc.jsonc' }, '.git' },
+        settings = {
+          Lua = {
+            runtime = { version = 'LuaJIT' },
+            diagnostics = { globals = { 'vim' } },
+            workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+          },
+        },
+      }
     end,
-  },  -- <--- comma here if there are more plugins after
+  },
 }
+
+
 

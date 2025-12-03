@@ -46,7 +46,7 @@ return {
       groups = {
         nightfox = {
           NonText = { fg = "#a8c4ec" }, 
-          Comment = { fg = "#a8c4ec" },
+          Comment = { fg = "#a8c4ec" , bg  = "None" },
           String = { fg = "#83a0ce" },
           Number = { fg = "#5d8be2" }, --{ fg = "#8467aa" }, 
           ["@variable"] = { fg = "#93b7f2" }, 
@@ -79,6 +79,7 @@ return {
     vim.api.nvim_set_hl(0, "Statement", { fg = "#8ecdc8", italic = true })
     vim.api.nvim_set_hl(0, "Conceal", { fg = "#a8c4ec" }) 
     vim.api.nvim_set_hl(0, "texNormal", { fg = "#a8c4ec" }) 
+    vim.api.nvim_set_hl(0, "Comment", { fg = "#a8c4ec", bg = "None" }) 
     vim.api.nvim_set_hl(0, "texMathTextConcArg", { link = "Special" }) 
     vim.api.nvim_set_hl(0, "NvimTreeRootFolder", { link = "Special" }) 
     end,
