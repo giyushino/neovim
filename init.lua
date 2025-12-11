@@ -61,7 +61,8 @@ vim.api.nvim_set_keymap('n', '.', '<Nop>', { noremap = true, silent = true })
 
 vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 
-vim.api.nvim_set_keymap('n', 'f', ':lua Snacks.dashboard.pick()<CR>', { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('n', 's', ':lua Snacks.dashboard.pick()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 's', "<cmd>lua require('telescope.builtin').find_files()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'g', ":lua Snacks.dashboard.pick('live_grep')<CR>", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<leader>;', ':ToggleTerm<CR>', { noremap = true, silent = true })
@@ -81,27 +82,6 @@ vim.keymap.set('i', '<C-F>', 'copilot#Accept("\\<CR>")', {
 vim.g.copilot_no_tab_map = true
 vim.api.nvim_set_keymap('n', '<leader>m', ':lua Snacks.picker.explorer({ show_hidden = true })<CR>', { noremap = true, silent = true })
 --vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#fab387" }) -- or any hex color you like
-function GetVenvPythonPath()
-  -- Look for .venv in current directory
-  local current_dir = vim.fn.expand('%:p:h')
-  local venv_python = current_dir .. '/.venv/bin/python'
-  
-  if vim.fn.filereadable(venv_python) == 1 then
-    return venv_python
-  end
-  
-  -- Look for .venv in parent directories (traverse up)
-  local parent_dir = vim.fn.fnamemodify(current_dir, ':h')
-  while parent_dir ~= '/' do
-    venv_python = parent_dir .. '/.venv/bin/python'
-    if vim.fn.filereadable(venv_python) == 1 then
-      return venv_python
-    end
-    parent_dir = vim.fn.fnamemodify(parent_dir, ':h')
-  end
-  
-  return nil
-end
 
 
 

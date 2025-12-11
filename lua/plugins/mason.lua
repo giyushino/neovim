@@ -13,7 +13,8 @@ return {
     dependencies = { 'williamboman/mason.nvim' },
     config = function()
       require('mason-lspconfig').setup({
-        ensure_installed = { "pyright", "clangd", "texlab", "tinymist", "ocamllsp", "eslint", "vtsls", "html", "lua_ls" },
+        --ensure_installed = { "pyright", "clangd", "texlab", "tinymist", "ocamllsp", "eslint", "vtsls", "html", "lua_ls", "pyrefly" },
+        ensure_installed = { "clangd", "texlab", "tinymist", "ocamllsp", "eslint", "vtsls", "html", "lua_ls", "pyrefly" },
         automatic_installation = true,
       })
     end,
@@ -23,32 +24,19 @@ return {
     'neovim/nvim-lspconfig',
     lazy = false,
     ft = { 'python', 'cpp', 'javascript', 'tex', 'ml', 'typ', 'html', 'lua' },
-    dependencies = { 'ray-x/lsp_signature.nvim' },
     config = function()
       local lspconfig = require('lspconfig')
-
-      -- Signature helper
-      local signature_setup = {
-        bind = true,
-        hint_enable = true,
-        handler_opts = { border = "rounded" },
-      }
-      local on_attach = function(client, bufnr)
-        pcall(require('lsp_signature').on_attach, signature_setup, bufnr)
-      end
 
       ---------------------------------------------------
       -- Python
       ---------------------------------------------------
-      vim.lsp.config['pyright'] = {
-        on_attach = on_attach,
-      }
+      --vim.lsp.config['pyright'] = {}
+      vim.lsp.config['pyrefly'] = {}
 
       ---------------------------------------------------
       -- C/C++
       ---------------------------------------------------
       vim.lsp.config['clangd'] = {
-        on_attach = on_attach,
         cmd = { "clangd", "--header-insertion=iwyu", "--query-driver=/usr/bin/g++" },
         init_options = { clangdFileStatus = true },
         settings = {
@@ -66,50 +54,46 @@ return {
       ---------------------------------------------------
       -- OCaml
       ---------------------------------------------------
-      vim.lsp.config['ocamllsp'] = {
-        on_attach = on_attach,
-      }
+      vim.lsp.config['ocamllsp'] = {}
 
       ---------------------------------------------------
       -- TeX
       ---------------------------------------------------
-      vim.lsp.config['texlab'] = {
-        on_attach = on_attach,
-      }
+      vim.lsp.config['texlab'] = {}
 
       ---------------------------------------------------
       -- HTML
       ---------------------------------------------------
       vim.lsp.config['html'] = {
-        on_attach = on_attach,
+        on_attach = function(client)
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end
       }
 
       ---------------------------------------------------
       -- TypeScript / JavaScript
       ---------------------------------------------------
-      vim.lsp.config['vtsls'] = {
-        on_attach = on_attach,
-      }
+      vim.lsp.config['vtsls'] = {}
 
       ---------------------------------------------------
       -- Tinymist
       ---------------------------------------------------
       if vim.lsp.config['tinymist'] then
-        vim.lsp.config['tinymist'].on_attach = on_attach
+        vim.lsp.config['tinymist'].on_attach = nil
       end
 
       ---------------------------------------------------
       -- ESLint
       ---------------------------------------------------
       if vim.lsp.config['eslint'] then
-        vim.lsp.config['eslint'].on_attach = on_attach
+        vim.lsp.config['eslint'].on_attach = nil
       end
 
       ---------------------------------------------------
       -- Lua
       ---------------------------------------------------
       vim.lsp.config['luals'] = {
-        on_attach = on_attach,
         cmd = { 'lua-language-server' },
         filetypes = { 'lua' },
         root_markers = { { '.luarc.json', '.luarc.jsonc' }, '.git' },
@@ -124,3 +108,4 @@ return {
     end,
   },
 }
+

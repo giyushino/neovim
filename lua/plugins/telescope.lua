@@ -9,7 +9,7 @@ return {
         hidden = true,
         -- Ignore certain patterns
         file_ignore_patterns = {
-          "%.pt$", "%.safetensors$", "%.json$", "%.md$", "%.o$", "%.obj$", "%.class$", "%.DS_Store$",
+          "%.pt$", "%.safetensors$", "%.json$", "%.o$", "%.obj$", "%.class$", "%.DS_Store$",
           "%.pyc$", "__pycache__/", "node_modules/", "%.lock$", ".git/", "%.swp$", "%.swo$", "%.bak$", "%.tmp$", "%.log$",
           "__init__%.py$"
         },
