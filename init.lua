@@ -26,30 +26,6 @@ vim.opt.ignorecase = true
 vim.api.nvim_set_hl(0, "NvimTreeFolderName", { fg = "#FF69B4", bg = "NONE" }) -- Pink folder names
 vim.api.nvim_set_keymap("v", "<leader>r", ":s///g<Left><Left><Left>", { noremap = true })
 
-if vim.g.neovide == true then
-  vim.api.nvim_set_keymap("n", "<C-+>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>", { silent = true })
-  vim.g.neovide_background_color = "#1e1e2e" 
-  vim.g.neovide_opacity = 0.7
-  vim.g.neovide_padding_left = 20
-  vim.g.neovide_padding_top = 20
-  vim.g.terminal_color_0 = "#45475a"
-  vim.g.terminal_color_1 = "#f38ba8"
-  vim.g.terminal_color_2 = "#a6e3a1"
-  vim.g.terminal_color_3 = "#f9e2af"
-  vim.g.terminal_color_4 = "#89b4fa"
-  vim.g.terminal_color_5 = "#f5c2e7"
-  vim.g.terminal_color_6 = "#94e2d5"
-  vim.g.terminal_color_7 = "#bac2de"
-  vim.g.terminal_color_8 = "#585b70"
-  vim.g.terminal_color_9 = "#f38ba8"
-  vim.g.terminal_color_10 = "#a6e3a1"
-  vim.g.terminal_color_11 = "#f9e2af"
-  vim.g.terminal_color_12 = "#89b4fa"
-  vim.g.terminal_color_13 = "#f5c2e7"
-  vim.g.terminal_color_14 = "#94e2d5"
-  vim.g.terminal_color_15 = "#a6adc8" end
 
 vim.api.nvim_set_keymap('i', '(', '()<Left>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '[', '[]<Left>', { noremap = true, silent = true })
@@ -61,7 +37,8 @@ vim.api.nvim_set_keymap('n', '.', '<Nop>', { noremap = true, silent = true })
 
 vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 
-vim.api.nvim_set_keymap('n', 'f', ':lua Snacks.dashboard.pick()<CR>', { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('n', 'f', ':lua Snacks.dashboard.pick()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 's', "<cmd>lua require('telescope.builtin').find_files()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'g', ":lua Snacks.dashboard.pick('live_grep')<CR>", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<leader>;', ':ToggleTerm<CR>', { noremap = true, silent = true })
