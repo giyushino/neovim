@@ -1,5 +1,6 @@
 return {
   "nvim-tree/nvim-tree.lua",
+  lazy = false,
   version = "*",
   dependencies = {
     "nvim-tree/nvim-web-devicons", -- optional, for file icons
@@ -26,6 +27,7 @@ return {
 
     -- Toggle file tree
     vim.keymap.set("n", "<leader>m", ":NvimTreeToggle<CR>", { silent = true })
+    vim.keymap.set("n", "<leader>tf", ":NvimTreeFindFile<CR>", { desc = "NvimTree Find File" })
   end,
 }
 
