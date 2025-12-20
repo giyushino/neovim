@@ -14,7 +14,7 @@ return {
     config = function()
       require('mason-lspconfig').setup({
         --ensure_installed = { "pyright", "clangd", "texlab", "tinymist", "ocamllsp", "eslint", "vtsls", "html", "lua_ls", "pyrefly" },
-        ensure_installed = { "clangd", "texlab", "tinymist", "ocamllsp", "eslint", "vtsls", "html", "lua_ls", "pyrefly" },
+        ensure_installed = { "clangd", "lua_ls", "pyrefly" },
         automatic_installation = true,
       })
     end,
@@ -50,45 +50,6 @@ return {
           },
         },
       }
-
-      ---------------------------------------------------
-      -- OCaml
-      ---------------------------------------------------
-      vim.lsp.config['ocamllsp'] = {}
-
-      ---------------------------------------------------
-      -- TeX
-      ---------------------------------------------------
-      vim.lsp.config['texlab'] = {}
-
-      ---------------------------------------------------
-      -- HTML
-      ---------------------------------------------------
-      vim.lsp.config['html'] = {
-        on_attach = function(client)
-          client.server_capabilities.documentFormattingProvider = false
-          client.server_capabilities.documentRangeFormattingProvider = false
-        end
-      }
-
-      ---------------------------------------------------
-      -- TypeScript / JavaScript
-      ---------------------------------------------------
-      vim.lsp.config['vtsls'] = {}
-
-      ---------------------------------------------------
-      -- Tinymist
-      ---------------------------------------------------
-      if vim.lsp.config['tinymist'] then
-        vim.lsp.config['tinymist'].on_attach = nil
-      end
-
-      ---------------------------------------------------
-      -- ESLint
-      ---------------------------------------------------
-      if vim.lsp.config['eslint'] then
-        vim.lsp.config['eslint'].on_attach = nil
-      end
 
       ---------------------------------------------------
       -- Lua
