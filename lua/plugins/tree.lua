@@ -27,5 +27,6 @@ return {
 
     -- Toggle file tree
     vim.keymap.set("n", "<leader>m", ":NvimTreeToggle<CR>", { silent = true })
+    vim.keymap.set("n", "<leader>tf", ":NvimTreeFindFile<CR>", { desc = "NvimTree Find File" })
   end,
 }

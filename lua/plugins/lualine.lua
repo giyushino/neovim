@@ -1,38 +1,40 @@
+local colors = require("colors")
+local c = colors.lualine
+
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   event = "VeryLazy",
   config = function()
-    local colors = {
-      nord1  = '#3B4252',
-      nord3  = '#4C566A',
-      nord5  = '#E5E9F0',
-      nord6  = '#ECEFF4',
-      nord7  = '#8FBCBB',
-      nord8  = '#93b7f2', --'#88C0D0',
-      nord13 = '#EBCB8B',
-    }
-     local nord_theme = {
-      normal = {
-        a = { fg = colors.nord1, bg = colors.nord8, gui = 'bold' },
-        b = { fg = colors.nord5, bg = colors.nord1 },
-        c = { fg = colors.nord5, bg = colors.nord3 },
-      },
-      insert = { a = { fg = colors.nord1, bg = colors.nord8, gui = 'bold' } },
-      visual = { a = { fg = colors.nord1, bg = colors.nord8, gui = 'bold' } },
-      replace = { a = { fg = colors.nord1, bg = colors.nord13, gui = 'bold' } },
-      inactive = {
-        a = { fg = colors.nord1, bg = colors.nord8, gui = 'bold' },
-        b = { fg = colors.nord5, bg = colors.nord1 },
-        c = { fg = colors.nord5, bg = colors.nord1 },
-      },
-    }
-  require("lualine").setup {
+    local theme
+    if c.theme then
+      -- Use built-in theme (e.g., monoglow)
+      theme = c.theme
+    else
+      -- Custom theme from colors
+      theme = {
+        normal = {
+          a = { fg = c.bg_dark, bg = c.accent, gui = "bold" },
+          b = { fg = c.fg, bg = c.bg_dark },
+          c = { fg = c.fg, bg = c.bg_mid },
+        },
+        insert = { a = { fg = c.bg_dark, bg = c.accent, gui = "bold" } },
+        visual = { a = { fg = c.bg_dark, bg = c.accent, gui = "bold" } },
+        replace = { a = { fg = c.bg_dark, bg = c.warning, gui = "bold" } },
+        inactive = {
+          a = { fg = c.bg_dark, bg = c.accent, gui = "bold" },
+          b = { fg = c.fg, bg = c.bg_dark },
+          c = { fg = c.fg, bg = c.bg_dark },
+        },
+      }
+    end
+
+    require("lualine").setup({
       options = {
         icons_enabled = true,
-        theme = nord_theme,
-        component_separators = { left = "", right = "" },
-        section_separators = { left = "", right = "" },
+        theme = theme,
+        component_separators = { left = "", right = "" },
+        section_separators = { left = "", right = "" },
         disabled_filetypes = {
           statusline = {},
           winbar = {},
@@ -80,6 +82,6 @@ return {
       winbar = {},
       inactive_winbar = {},
       extensions = {},
-    }
+    })
   end,
 }
