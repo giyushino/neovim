@@ -21,8 +21,20 @@ return {
     SnacksBorder = { fg = "#585858" },
   },
 
-  -- Extra highlights (none for black, handled in highlights)
-  extra_highlights = {},
+  -- Extra highlights
+  extra_highlights = {
+    -- NvimTree
+    NvimTreeNormal = { fg = "#ffffff", bg = "None" },
+    NvimTreeFolderName = { fg = "#ffffff" },
+    NvimTreeOpenedFolderName = { fg = "#ffffff", bold = true },
+    NvimTreeEmptyFolderName = { fg = "#808080" },
+    NvimTreeRootFolder = { fg = "#ffffff", bold = true },
+    NvimTreeSymlink = { fg = "#cccccc" },
+    NvimTreeGitDirty = { fg = "#cccccc" },
+    NvimTreeGitNew = { fg = "#ffffff" },
+    NvimTreeGitDeleted = { fg = "#808080" },
+    NvimTreeSpecialFile = { fg = "#ffffff", underline = true },
+  },
 
   -- Lualine colors
   lualine = {
