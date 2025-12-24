@@ -1,15 +1,15 @@
--- Blue theme colors
+-- Red theme colors
 return {
-  name = "blue",
-  colorscheme = "nightfox",
-  plugin = "EdenEast/nightfox.nvim",
+  name = "red",
+  colorscheme = "ashen",
+  plugin = "ficcdaf/ashen.nvim",
 
   -- Syntax highlights (nightfox groups)
   highlights = {
-    NonText = "#a8c4ec",
+    NonText = "#e8a0a0",
     Comment = "#a8c4ec",
     String = "#83a0ce",
-    Number = "#5d8be2",
+    Number = "#f94449",
     ["@variable"] = "#93b7f2",
     ["@variable.parameter"] = "#53a1e0",
     ["@parameter"] = "#3471eb",
@@ -19,7 +19,6 @@ return {
     ["@keyword.return"] = "#6287bb",
     Conditional = "#548ee3",
     Constant = "#5478f6",
-    ["@constant.builtin"] = "#6276bb",
     PreProc = "#5a90e8",
     ["@function.builtin"] = "#5683fb",
     ["@module"] = "#91c7e4",
@@ -28,7 +27,7 @@ return {
     ["@punctuation.special"] = "#0868dc",
     Type = "#6272ff",
     ["@type.builtin"] = "#6272ff",
-    Keyword = "#657fda",
+    keyword = "#657fda",
   },
 
   -- Extra highlights set after colorscheme loads
@@ -37,16 +36,43 @@ return {
     Statement = { fg = "#8ecdc8", italic = true },
     Conceal = { fg = "#a8c4ec" },
     texNormal = { fg = "#a8c4ec" },
+    -- Line numbers
+    LineNr = { fg = "#f69697", bg = "None" },
+    CursorLineNr = { fg = "#f94449", bg = "None" },
+    SignColumn = { bg = "None" },
+    -- Snacks Dashboard
+    SnacksDashboardDir = { fg = "#f94449" },
+    SnacksDashboardDesc = { fg = "#e8a0a0" },
+    SnacksDashboardIcon = { fg = "#e8a0a0" },
+    SnacksDashboardKey = { fg = "#e8a0a0" },
+    SnacksDashboardHeader = { fg = "#f94449" },
+    SnacksDashboardFooter = { fg = "#e8a0a0" },
+    SnacksDashboardTitle = { fg = "#e8a0a0" },
+    -- NvimTree
+    NvimTreeNormal = { fg = "#e8a0a0", bg = "None" },
+    NvimTreeFolderIcon = { fg = "#e8a0a0" },
+    NvimTreeFolderName = { fg = "#e8a0a0" },
+    NvimTreeOpenedFolderName = { fg = "#e8a0a0", bold = true },
+    NvimTreeEmptyFolderName = { fg = "#c08080" },
+    NvimTreeRootFolder = { fg = "#e8a0a0", bold = true },
+    NvimTreeSymlink = { fg = "#e8a0a0" },
+    NvimTreeGitDirty = { fg = "#d19a66" },
+    NvimTreeGitNew = { fg = "#e8a0a0" },
+    NvimTreeGitDeleted = { fg = "#c08080" },
+    NvimTreeSpecialFile = { fg = "#e8a0a0", underline = true },
+    ["@boolean"] = { fg = "#f94449" },
+    ["@number"] = { fg = "#f94449" },
+    ["@constant.builtin"] = { fg = "#f94449" },
   },
 
   -- Lualine colors
   lualine = {
-    bg_dark = "#3B4252",
-    bg_mid = "#4C566A",
-    fg = "#E5E9F0",
-    fg_bright = "#ECEFF4",
-    accent = "#93b7f2",
-    accent_alt = "#8FBCBB",
-    warning = "#EBCB8B",
+    bg_dark = "#2a1a1a",
+    bg_mid = "#3a2a2a",
+    fg = "#e8a0a0",
+    fg_bright = "#f94449",
+    accent = "#f94449",
+    accent_alt = "#e8a0a0",
+    warning = "#d19a66",
   },
 }
