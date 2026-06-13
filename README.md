@@ -1,5 +1,5 @@
 # neovim
-my neovim config using lazy as my package manager
+my deprecated neovim config using lazy as my package manager
 
 ## Snacks dashboard
 <img width="2560" height="1599" alt="image" src="https://github.com/user-attachments/assets/2d708f8f-ce59-4749-b3a6-7611a82d85bf" />
