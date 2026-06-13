@@ -41,12 +41,11 @@ return {
 
   -- Lualine colors
   lualine = {
-    theme = "monoglow", -- use built-in theme
     bg_dark = "#1c1c1c",
     bg_mid = "#2c2c2c",
     fg = "#ffffff",
     fg_bright = "#ffffff",
-    accent = "#808080",
+    accent = "#1bfd9c",
     accent_alt = "#585858",
     warning = "#EBCB8B",
   },

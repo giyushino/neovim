@@ -23,7 +23,7 @@ return {
   {
     'neovim/nvim-lspconfig',
     lazy = false,
-    ft = { 'python', 'cpp', 'javascript', 'tex', 'ml', 'typ', 'html', 'lua' },
+    ft = { 'python', 'cpp', 'javascript', 'tex', 'ml', 'typ', 'html', 'lua', 'zig', 'odin' },
     config = function()
       local lspconfig = require('lspconfig')
 
@@ -93,6 +93,18 @@ return {
       ---------------------------------------------------
       -- Lua
       ---------------------------------------------------
+      ---------------------------------------------------
+      -- Zig
+      ---------------------------------------------------
+      vim.lsp.config['zls'] = {}
+      vim.lsp.enable('zls')
+
+      ---------------------------------------------------
+      -- Odin
+      ---------------------------------------------------
+      vim.lsp.config['ols'] = {}
+      vim.lsp.enable('ols')
+
       vim.lsp.config['luals'] = {
         cmd = { 'lua-language-server' },
         filetypes = { 'lua' },

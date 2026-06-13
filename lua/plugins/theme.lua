@@ -53,8 +53,8 @@ elseif colors.name == "red" then
       end,
     }
   }
-elseif colors.name == "blue" then
-  -- Nightfox setup for blue theme
+elseif colors.name == "blue" or colors.name == "gold" then
+  -- Nightfox setup for blue / gold themes
   return {
     {
       colors.plugin,
@@ -99,7 +99,7 @@ elseif colors.name == "blue" then
           palettes = {},
           specs = {},
           groups = {
-            nightfox = groups,
+            [colors.colorscheme] = groups,
           },
         })
 

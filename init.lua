@@ -83,9 +83,70 @@ vim.g.copilot_no_tab_map = true
 vim.api.nvim_set_keymap('n', '<leader>m', ':lua Snacks.picker.explorer({ show_hidden = true })<CR>', { noremap = true, silent = true })
 --vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#fab387" }) -- or any hex color you like
 
-
-
 function RunScript()
+  local filetype = vim.bo.filetype
+  local current_file = vim.fn.expand('%:p')  
+  local current_dir = vim.fn.expand('%:p:h')   
+  if filetype == 'python' then
+    local lines = vim.fn.getline(1, 5)
+    local env_name
+    local use_uv = false
+    local shebang
+    for _, line in ipairs(lines) do
+      if line:match("^#!") then
+        shebang = line:match("^#!%s*(.+)")
+        break 
+      elseif line:match("#%s*uv") then
+        use_uv = true
+      elseif not env_name then
+        env_name = line:match("#%s*env:%s*(%S+)")
+      end
+    end
+    local python_cmd
+    if shebang then
+      python_cmd = shebang
+    else
+      -- Check for .venv first (higher priority)
+      local venv_path = vim.fs.find('.venv', {
+        upward = true,
+        stop = vim.loop.os_homedir(),
+        path = current_dir
+      })[1]
+      if venv_path then
+        python_cmd = venv_path .. '/bin/python'
+      elseif env_name then
+        python_cmd = "/home/allan/miniconda3/envs/" .. env_name .. "/bin/python"
+      else
+        python_cmd = "/home/allan/miniconda3/bin/python"  
+      end
+    end
+    vim.cmd('!' .. python_cmd .. ' ' .. vim.fn.shellescape(current_file))
+  
+  elseif filetype == 'javascript' then
+    vim.cmd('!cd ' .. current_dir .. ' && node ' .. vim.fn.shellescape(current_file))
+  
+  elseif filetype == "tex" then
+    vim.cmd('VimtexCompile')
+    
+  elseif filetype == 'sh' then
+    vim.cmd('!chmod +x ' .. vim.fn.shellescape(current_file) .. ' && ' .. vim.fn.shellescape(current_file))
+
+  elseif filetype == 'cpp' then
+    local filename = vim.fn.expand('%:t')  
+    local output_name = filename:match("(.+)%..+$")  
+    vim.cmd('!cd ' .. current_dir .. ' && g++ ' .. filename .. ' -o ' .. output_name .. ' && ./' .. output_name)
+    
+  elseif filetype == "cuda" then 
+    local filename = vim.fn.expand('%:t')
+    local output_name = filename:match("(.+)%..+$")
+    vim.cmd('!cd ' .. current_dir .. ' && nvcc ' .. filename .. ' -o ' .. output_name .. ' && ./' .. output_name)
+
+  else
+    print("Unsupported file type")
+  end
+end
+
+function RunScriptOld()
   local filetype = vim.bo.filetype
   local current_file = vim.fn.expand('%:p')  
   local current_dir = vim.fn.expand('%:p:h')   
@@ -103,7 +164,7 @@ function RunScript()
       elseif line:match("#%s*uv") then
         use_uv = true
       elseif not env_name then
-        env_name = line:match("#%s*conda_env:%s*(%S+)")
+        env_name = line:match("#%s*env:%s*(%S+)")
       end
     end
 
@@ -202,6 +263,8 @@ function OpenDiagnosticFloat()
 end
 
 vim.api.nvim_set_keymap('n', '<C-[>', ':lua OpenDiagnosticFloat()<CR>', { noremap = true, silent = true })
+vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help)
+vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help)
 
 
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -210,3 +273,4 @@ vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
 vim.keymap.set({'n', 'i'}, '<leader>s', vim.lsp.buf.signature_help, { silent = true, noremap = true, desc = "Show signature help" })
 vim.keymap.set("n", "<leader>tf", ":NvimTreeFindFile<CR>", { desc = "NvimTree Find File" })
+

@@ -1,10 +1,8 @@
--- Red theme colors
 return {
   name = "red",
   colorscheme = "ashen",
   plugin = "ficcdaf/ashen.nvim",
 
-  -- Syntax highlights (nightfox groups)
   highlights = {
     NonText = "#e8a0a0",
     Comment = "#a8c4ec",
@@ -45,7 +43,7 @@ return {
     SnacksDashboardDesc = { fg = "#e8a0a0" },
     SnacksDashboardIcon = { fg = "#e8a0a0" },
     SnacksDashboardKey = { fg = "#e8a0a0" },
-    SnacksDashboardHeader = { fg = "#f94449" },
+    SnacksDashboardHeader = { fg = "#f56649" },
     SnacksDashboardFooter = { fg = "#e8a0a0" },
     SnacksDashboardTitle = { fg = "#e8a0a0" },
     -- NvimTree
@@ -63,6 +61,7 @@ return {
     ["@boolean"] = { fg = "#f94449" },
     ["@number"] = { fg = "#f94449" },
     ["@constant.builtin"] = { fg = "#f94449" },
+    ["@type.builtin"] = { fg = "#eb4f34" },
   },
 
   -- Lualine colors
