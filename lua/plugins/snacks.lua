@@ -2,6 +2,19 @@ return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
+  dependencies = {
+    -- icon provider; snacks auto-detects this for file/git/diagnostic icons
+    {
+      "nvim-mini/mini.icons",
+      version = false,
+      opts = {},
+      config = function(_, opts)
+        require("mini.icons").setup(opts)
+        -- let plugins that ask for nvim-web-devicons transparently use mini.icons
+        require("mini.icons").mock_nvim_web_devicons()
+      end,
+    },
+  },
   ---@type snacks.Config
   opts = {
     explorer = {
