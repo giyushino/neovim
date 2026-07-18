@@ -96,4 +96,5 @@ function RunScript()
   end
 end
 
-vim.keymap.set('n', '<leader>m', ':lua RunScript()<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>,', ':lua RunScript()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<leader>r", ":s///g<Left><Left><Left>", { noremap = true })
