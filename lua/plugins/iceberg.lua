@@ -31,6 +31,9 @@ return {
     vim.api.nvim_set_hl(0, "SnacksPickerFile", { fg = "#FFFFFF", bg = "none" })
     vim.api.nvim_set_hl(0, "SnacksBorder", { fg = "#585858", bg = "none" })
 
+    vim.api.nvim_set_hl(0, "@lsp.type.parameter.python", { link = "Type" })
+    vim.api.nvim_set_hl(0, "pythonDecorator", { link = "TSFunction" })
+
     -- Snacks dashboard highlights
     vim.api.nvim_set_hl(0, "Special", { fg = "#84a0c6" })
     vim.api.nvim_set_hl(0, "NonText", { fg = "#ffffff" })

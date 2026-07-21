@@ -10,6 +10,7 @@ vim.opt.relativenumber = true
 vim.opt.signcolumn = 'no'
 vim.opt.swapfile = false
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result (centered)" })
+vim.opt.termguicolors = true
 -- vim.opt.concealcursor = "n"
 -- vim.opt["guicursor"] = "" 
 vim.api.nvim_create_user_command('Q', 'q', {})
