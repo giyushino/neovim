@@ -33,6 +33,8 @@ return {
 
     vim.api.nvim_set_hl(0, "@lsp.type.parameter.python", { link = "Type" })
     vim.api.nvim_set_hl(0, "pythonDecorator", { link = "TSFunction" })
+    vim.api.nvim_set_hl(0, "PmenuSbar", { link = "Pmenu" })
+    vim.api.nvim_set_hl(0, "PmenuThumb", { link = "Pmenu" })
 
     -- Snacks dashboard highlights
     vim.api.nvim_set_hl(0, "Special", { fg = "#84a0c6" })
