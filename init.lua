@@ -104,7 +104,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     local opts = { buffer = args.buf, silent = true }
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
+    vim.keymap.set('n', '<C-e>', vim.diagnostic.open_float, opts)
   end,
 })
 vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help, opts)
