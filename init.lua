@@ -107,4 +107,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<C-e>', vim.diagnostic.open_float, opts)
   end,
 })
-vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help, opts)
+vim.keymap.set('i', '<C-a>', vim.lsp.buf.signature_help, opts)

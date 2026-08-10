@@ -1,3 +1,4 @@
+-- Blue theme. Copied to lua/colors/init.lua by ~/nvim/bash/colors.sh.
 return {
   "cocopon/iceberg.vim",
   priority = 1000, -- load before other UI plugins
